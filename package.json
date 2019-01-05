@@ -1,0 +1,51 @@
+{
+  "name": "pm2-rpc-api",
+  "version": "1.0.0",
+  "description": "Simple HTTP JSON-RPC API for administrative tasks on PM2 managed node containers",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p src/",
+    "test": "jest --config test/jest.config.json",
+    "debug": "TS_NODE_PROJECT=src/tsconfig.json TS_NODE_FILE=true node -r ts-node/register --inspect=0.0.0.0 --inspect-brk example/server.ts",
+    "start": "ts-node example/server.ts",
+    "gen-doc": "typedoc --hideGenerator --tsconfig src/tsconfig.json --out docs/ src/"
+  },
+  "prepublishOnly": "npm run build",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/decentro-gmbh/pm2-rpc-api.git"
+  },
+  "keywords": [
+    "pm2",
+    "json-rpc"
+  ],
+  "author": "Decentro GmbH",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/decentro-gmbh/pm2-rpc-api/issues"
+  },
+  "homepage": "https://github.com/decentro-gmbh/pm2-rpc-api#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "nconf": "^0.10.0",
+    "pm2": "^3.2.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/jest": "^23.3.10",
+    "@types/nconf": "0.0.37",
+    "@types/node": "^10.12.18",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.0",
+    "typedoc": "^0.13.0",
+    "typescript": "^3.2.2",
+    "ts-node": "^7.0.1"
+  }
+}
