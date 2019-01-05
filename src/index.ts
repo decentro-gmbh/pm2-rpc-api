@@ -7,6 +7,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { ILogger, IServerOptions } from './interfaces';
 import { generateAuthMiddleware } from './authentication';
+import { PM2 } from './routes/pm2';
 
 
 export class Server {
@@ -84,8 +85,11 @@ export class Server {
     this.apikeyhash = store.get('apikeyhash');
   }
 
+  /** Override in sub-class to extend the Express server, will be called before starting to listen */
+  protected extendServer(server) {}
+
   /** Start the HTTP JSON-RCP API */
-  start(): void {
+  public start(): void {
     if (this.disabled) {
       this.log.err('Server is disabled, exiting.');
       return;
@@ -106,8 +110,12 @@ export class Server {
       this.log.info('Authentication disabled');
     }
 
-    // Register integration middlewares
-    server.get('/test', (req, res, next) => { res.status(200).end(); });
+    // Register routes
+    const pm2 = new PM2(this.log);
+    pm2.register(server);
+
+    // Perform further server initialization
+    this.extendServer(server);
 
     // Start listening
     server.listen(this.port, this.host, () => {
