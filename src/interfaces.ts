@@ -10,8 +10,8 @@ export interface IServerOptions {
   authentication?: boolean;
   /** Provide the SHA256 hash (in hexadecimal format) of the API key that is used for authentication */
   apikeyhash?: string;
-  /** Namespace for environment variables (default: 'PM2API') */
-  envNamespace?: string;
+  /** Prefix for environment variables (default: 'PM2API') */
+  envPrefix?: string;
   /** Logger */
   logger?: ILogger;
 }

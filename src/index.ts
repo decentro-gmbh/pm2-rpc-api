@@ -10,7 +10,7 @@ import { generateAuthMiddleware } from './authentication';
 
 
 export class Server {
-  private envNamespace: string;
+  private envPrefix: string;
   private log: ILogger;
 
   private host: string;
@@ -20,13 +20,14 @@ export class Server {
   private apikeyhash: null|string;
 
   constructor(options: IServerOptions = {}) {
-    this.envNamespace = (options.envNamespace || 'PM2API_').toLowerCase();
-
     this.log = options.logger || {
       info: msg => console.log(`[INFO] ${msg}`), // tslint:disable-line:no-console
       warn: msg => console.log(`[WARNING] ${msg}`), // tslint:disable-line:no-console
       err: msg => console.log(`[ERROR] ${msg}`), // tslint:disable-line:no-console
     };
+
+    this.envPrefix = (options.envPrefix || 'PM2API_').toLowerCase();
+    this.log.info(`Loading environment variables with prefix: '${this.envPrefix.toUpperCase()}'`);
 
     this.initialize(options);
   }
@@ -44,14 +45,14 @@ export class Server {
       lowerCase: true,
       parseValues: true,
       transform: (obj) => {
-        // Only load environment variables starting with the given namespace
-        if (!obj.key.startsWith(this.envNamespace)) {
+        // Only load environment variables starting with the given prefix
+        if (!obj.key.startsWith(this.envPrefix)) {
           return false;
         }
 
-        // Remove namespace from key
+        // Remove prefix from key
         return {
-          key: obj.key.substring(this.envNamespace.length),
+          key: obj.key.substring(this.envPrefix.length),
           value: obj.value,
         };
       },
