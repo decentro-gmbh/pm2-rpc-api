@@ -4,46 +4,35 @@
 
 import * as nconf from 'nconf';
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import { ILogger, IServerOptions } from './interfaces';
+import { generateAuthMiddleware } from './authentication';
 
-export interface IServerOptions {
-  /** Server host */
-  host?: string;
-  /** Server port */
-  port?: number;
-  /** Whether the API is disabled by default. Results in the start() method exiting immediately (default: false) */
-  disabled?: boolean;
-  /** Namespace for environment variables (default: 'PM2API') */
-  envNamespace?: string;
-  /** Logging function for info messages (default: console.log) */
-  info?: Function;
-  /** Logging function for warnings (default: console.log) */
-  warn?: Function;
-  /** Logging function for errors (default: console.log) */
-  err?: Function;
-}
 
 export class Server {
   private envNamespace: string;
-  private info: Function;
-  private warn: Function;
-  private err: Function;
+  private log: ILogger;
 
   private host: string;
   private port: number;
   private disabled: boolean;
+  private authentication: boolean;
+  private apikeyhash: null|string;
 
   constructor(options: IServerOptions = {}) {
     this.envNamespace = (options.envNamespace || 'PM2API_').toLowerCase();
 
-    this.info = options.info || console.log; // tslint:disable-line:no-console
-    this.warn = options.warn || console.log; // tslint:disable-line:no-console
-    this.err = options.err || console.log; // tslint:disable-line:no-console
+    this.log = options.logger || {
+      info: msg => console.log(`[INFO] ${msg}`), // tslint:disable-line:no-console
+      warn: msg => console.log(`[WARNING] ${msg}`), // tslint:disable-line:no-console
+      err: msg => console.log(`[ERROR] ${msg}`), // tslint:disable-line:no-console
+    };
 
     this.initialize(options);
   }
 
   /** Initialize class attributes based on the provided command line arguments, environment variables and provided instance options */
-  private initialize(options: IServerOptions) {
+  private initialize(options: IServerOptions): void {
     const store = new nconf.Provider();
 
     // Add command line arguments
@@ -73,6 +62,8 @@ export class Server {
       host: options.host,
       port: options.port,
       disabled: options.disabled,
+      authentication: options.authentication,
+      apikeyhash: options.apikeyhash,
     });
 
     // Add default values
@@ -80,29 +71,46 @@ export class Server {
       host: 'localhost',
       port: 1337,
       disabled: false,
+      authentication: false,
+      apikeyhash: null,
     });
 
     // Set final values for class attributes
     this.host = store.get('host');
     this.port = store.get('port');
     this.disabled = store.get('disabled');
+    this.authentication = store.get('authentication');
+    this.apikeyhash = store.get('apikeyhash');
   }
 
   /** Start the HTTP JSON-RCP API */
-  start() {
+  start(): void {
     if (this.disabled) {
-      this.err('Server is disabled, exiting.');
+      this.log.err('Server is disabled, exiting.');
       return;
     }
 
     const server = express();
+    server.use(bodyParser.json());
+
+    // Register authentication middleware
+    if (!this.authentication && this.apikeyhash) {
+      this.log.warn('An API key hash was provided but authentication is disabled, NOT authenticating API requests!');
+    } else if (this.authentication && !this.apikeyhash) {
+      this.log.err('Authentication is enabled but no API key hash is given, exiting.');
+      process.exit(1);
+    } else if (this.authentication && this.apikeyhash) {
+      server.use('*', generateAuthMiddleware(this.apikeyhash, this.log));
+    } else {
+      this.log.info('Authentication disabled');
+    }
 
     // Register integration middlewares
-
+    server.get('/test', (req, res, next) => { res.status(200).end(); });
 
     // Start listening
     server.listen(this.port, this.host, () => {
-      this.info(`Server listening on ${this.host}:${this.port}`);
+      this.log.info(`Server listening on ${this.host}:${this.port}`);
     });
   }
 
