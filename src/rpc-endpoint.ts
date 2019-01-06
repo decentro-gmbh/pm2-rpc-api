@@ -1,24 +1,25 @@
 import * as Ajv from 'ajv';
-import { ILogger, IRpcResponse, IRpcRequest } from './interfaces';
+import { ILogger, IRpcResponse, IRpcRequest, IRpcModule } from './interfaces';
 import { rpcRequestSchema } from './rpc-schema';
 import * as uuidv4 from 'uuid/v4';
 
 /**
- * JSON-RPC endpoint
+ * JSON-RPC 2.0 endpoint class
  * https://www.jsonrpc.org/specification
  */
-
 export class RpcEndpoint {
-
+  /** Path the endpoint is registered at */
   protected path: string;
-  protected target: any;
+  /** Module whose methods can be called via the RPC endpoint */
+  protected module: IRpcModule;
+  /** Logger used to print log messages */
   protected log: ILogger;
-  protected validate: Ajv.ValidateFunction;
-  protected rpcHelper: boolean;
+  /** Whether to register an RPC helper middleware which transforms incoming requests to conform to the JSON-RPC 2.0 specification */
+  private rpcHelper: boolean;
 
-  constructor(path: string, target: any, log: ILogger, rpcHelper: boolean = false) {
+  constructor(path: string, module: IRpcModule, log: ILogger, rpcHelper: boolean = false) {
     this.path = path;
-    this.target = target;
+    this.module = module;
     this.log = log;
     this.rpcHelper = rpcHelper;
   }
@@ -55,9 +56,13 @@ export class RpcEndpoint {
     return next();
   }
 
-  /** Check if the specified method is available on the target */
-  protected checkMethodExistence(method: string) {
-    if (!this.target[method] || typeof this.target[method] !== 'function') {
+  /**
+   * Check whether the specified method exists
+   * @param method Method-name to check
+   * @throws Throws an error if the method does not exist
+   */
+  private checkMethodExistence(method: string) {
+    if (!this.module[method] || typeof this.module[method] !== 'function') {
       throw {
         name: 'Method not found',
         message: `The method '${method}' does not exist / is not available.`,
@@ -66,12 +71,18 @@ export class RpcEndpoint {
     }
   }
 
-  protected async execute(method: string, params: Array<any>) {
-    const result = await this.target[method](...params);
+  /**
+   * Execute the RPC
+   * @param method Method to execute
+   * @param params Parameters passed to the method invocation
+   */
+  protected async execute(method: string, params: Array<any>): Promise<any> {
+    const result = await this.module[method](...params);
     return result;
   }
 
-  protected async executeRpcCall(req, res, next) {
+  /** Middleware for executing the RPC call as specified in the RPC request */
+  private async executeRpc(req, res, next) {
     const rpcRequests = RpcEndpoint.getRpcRequests(req);
 
     const results = await Promise.all(rpcRequests.map(async (rpcRequest) => {
@@ -111,11 +122,11 @@ export class RpcEndpoint {
    * Register the RPC endpoint with the given Express server
    * @param server Express server object
    */
-  public register(server) {
+  public register(server): void {
     if (this.rpcHelper) {
       server.post(this.path, RpcEndpoint.rpcHelperMiddleware);
     }
     server.post(this.path, RpcEndpoint.validateRequestBody);
-    server.post(this.path, this.executeRpcCall.bind(this));
+    server.post(this.path, this.executeRpc.bind(this));
   }
 }
