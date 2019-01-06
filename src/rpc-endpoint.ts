@@ -1,5 +1,5 @@
 import * as Ajv from 'ajv';
-import { ILogger } from './interfaces';
+import { ILogger, IRpcResponse, IRpcRequest } from './interfaces';
 import { rpcRequestSchema } from './rpc-schema';
 import * as uuidv4 from 'uuid/v4';
 
@@ -24,7 +24,7 @@ export class RpcEndpoint {
   }
 
   /** Convenience method that normalizes the request body by always returning an array of rpc requests, even if only one is specified (both is allowed by the RFC) */
-  static getRpcRequests(req) {
+  static getRpcRequests(req): Array<IRpcRequest> {
     return Array.isArray(req.body) ? req.body : [req.body];
   }
 
@@ -56,20 +56,17 @@ export class RpcEndpoint {
   }
 
   /** Check if the specified method is available on the target */
-  protected checkMethodExistence(req, res, next) {
-    RpcEndpoint.getRpcRequests(req).forEach((rpcReq) => {
-      if (!this.target[rpcReq.method] || typeof this.target[rpcReq.method] !== 'function') {
-        return res.status(400).json({
-          code: -32601,
-          message: `Method not found: The method '${rpcReq.method}' does not exist / is not available.`,
-        });
-      }
-    });
-
-    return next();
+  protected checkMethodExistence(method: string) {
+    if (!this.target[method] || typeof this.target[method] !== 'function') {
+      throw {
+        name: 'Method not found',
+        message: `The method '${method}' does not exist / is not available.`,
+        rpcErrCode: -32601,
+      };
+    }
   }
 
-  protected async execute(method, params) {
+  protected async execute(method: string, params: Array<any>) {
     const result = await this.target[method](...params);
     return result;
   }
@@ -79,12 +76,13 @@ export class RpcEndpoint {
 
     const results = await Promise.all(rpcRequests.map(async (rpcRequest) => {
       try {
+        this.checkMethodExistence(rpcRequest.method);
         const result = await this.execute(rpcRequest.method, rpcRequest.params || []);
         return { result };
       } catch (err) {
         return {
           error: {
-            code: -32000,
+            code: err.rpcErrCode || -32000,
             message: `${err.name}: ${err.message}`,
             data: err.stack,
           },
@@ -92,7 +90,7 @@ export class RpcEndpoint {
       }
     }));
 
-    const responses = results.map((result, index) => {
+    const responses: Array<IRpcResponse> = results.map((result, index) => {
       return {
         jsonrpc: '2.0',
         id: rpcRequests[index].id,
@@ -100,19 +98,24 @@ export class RpcEndpoint {
       };
     });
 
+    const statusCode = responses.filter(rsp => rsp.error).length > 0 ? 500 : 200;
+
     if (!Array.isArray(req.body)) {
-      return res.status(200).json([responses]);
+      return res.status(statusCode).json([responses]);
     }
 
-    return res.status(200).json(responses);
+    return res.status(statusCode).json(responses);
   }
 
+  /**
+   * Register the RPC endpoint with the given Express server
+   * @param server Express server object
+   */
   public register(server) {
     if (this.rpcHelper) {
       server.post(this.path, RpcEndpoint.rpcHelperMiddleware);
     }
     server.post(this.path, RpcEndpoint.validateRequestBody);
-    server.post(this.path, this.checkMethodExistence.bind(this));
     server.post(this.path, this.executeRpcCall.bind(this));
   }
 }
