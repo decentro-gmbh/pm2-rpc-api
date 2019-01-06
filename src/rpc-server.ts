@@ -93,7 +93,7 @@ export class RpcServer {
     new Pm2Endpoint(this.log, true).register(server);
   }
 
-  /** Start the HTTP JSON-RCP API */
+  /** Start the HTTP JSON-RPC API */
   public start(): void {
     if (this.disabled) {
       this.log.err('Server is disabled, exiting.');
