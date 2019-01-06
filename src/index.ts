@@ -9,6 +9,7 @@ import * as nconf from 'nconf';
 import { ILogger, IServerOptions } from './interfaces';
 import { generateAuthMiddleware } from './authentication';
 import { RpcEndpoint } from './rpc-endpoint';
+import { Pm2Endpoint } from './endpoints/pm2';
 
 
 export class Server {
@@ -87,7 +88,10 @@ export class Server {
   }
 
   /** Override in sub-class to extend the Express server, will be called before starting to listen */
-  protected extendServer(server) {}
+  protected registerRpcEndpoints(server) {
+    new RpcEndpoint('/execa', execa, this.log, true).register(server);
+    new Pm2Endpoint(this.log, true).register(server);
+  }
 
   /** Start the HTTP JSON-RCP API */
   public start(): void {
@@ -111,12 +115,22 @@ export class Server {
       this.log.info('Authentication disabled');
     }
 
-    // Register routes
-    new RpcEndpoint('/execa', execa, this.log, true).register(server);
-    // TODO: error middleware
+    // Register RPC endpoints
+    this.registerRpcEndpoints(server);
 
-    // Perform further server initialization
-    this.extendServer(server);
+    // Error middleware
+    server.use(function errorMiddleware(err, req, res, next) {
+      if (err.type === 'entity.parse.failed') {
+        return res.status(400).json({
+          code: -32700,
+          message: 'Parse error: Invalid JSON was received by the server.',
+          data: err.stack,
+        });
+      }
+      return res.status(500).json({
+
+      });
+    });
 
     // Start listening
     server.listen(this.port, this.host, () => {
