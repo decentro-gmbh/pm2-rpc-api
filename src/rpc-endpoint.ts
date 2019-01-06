@@ -17,7 +17,7 @@ export class RpcEndpoint {
   /** Whether to register an RPC helper middleware which transforms incoming requests to conform to the JSON-RPC 2.0 specification */
   private rpcHelper: boolean;
 
-  constructor(path: string, module: IRpcModule, log: ILogger, rpcHelper: boolean = false) {
+  constructor(path: string, module: any, log: ILogger, rpcHelper: boolean = false) {
     this.path = path;
     this.module = module;
     this.log = log;

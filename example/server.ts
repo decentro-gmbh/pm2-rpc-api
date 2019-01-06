@@ -2,9 +2,9 @@
  * Example server
  */
 
-import { Server } from '../src/index';
+import { RpcServer } from '../src/rpc-server';
 
-const server = new Server({
+const server = new RpcServer({
   host: '0.0.0.0',
   envPrefix: 'API_',
   authentication: true,

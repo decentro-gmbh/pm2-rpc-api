@@ -12,7 +12,7 @@ import { RpcEndpoint } from './rpc-endpoint';
 import { Pm2Endpoint } from './endpoints/pm2';
 
 
-export class Server {
+export class RpcServer {
   private envPrefix: string;
   private log: ILogger;
 

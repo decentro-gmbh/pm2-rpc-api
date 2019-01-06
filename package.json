@@ -2,8 +2,8 @@
   "name": "pm2-rpc-api",
   "version": "1.0.0",
   "description": "Simple HTTP JSON-RPC API for administrative tasks on PM2 managed node containers",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/rpc-server.js",
+  "types": "dist/rpc-server.d.ts",
   "files": [
     "dist/*",
     "README.md",

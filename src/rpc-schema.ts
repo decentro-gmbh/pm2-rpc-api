@@ -1,7 +1,6 @@
 /**
  * JSON schema for validating RPC requests
- * Taken from:
- * https://github.com/fge/sample-json-schemas/blob/master/jsonrpc2.0/jsonrpc-request-2.0.json
+ * Taken from: https://github.com/fge/sample-json-schemas/blob/master/jsonrpc2.0/jsonrpc-request-2.0.json
  */
 
 export const rpcRequestSchema = {
