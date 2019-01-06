@@ -24,3 +24,23 @@ export interface ILogger {
   /** Logging function for errors (default: console.log) */
   err?: Function;
 }
+
+export interface IRpcRequest {
+  jsonrpc: string;
+  id: number;
+  method: string;
+  params: undefined|Array<any>;
+}
+
+export interface IRpcResponse {
+  jsonrpc: string;
+  id: number;
+  result?: Array<any>|Object;
+  error?: IRpcError;
+}
+
+export interface IRpcError {
+  code: number;
+  message: string;
+  data: any;
+}
