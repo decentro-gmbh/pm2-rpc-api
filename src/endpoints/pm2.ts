@@ -4,13 +4,12 @@
 
 import * as pm2Sync from 'pm2';
 import * as bluebird from 'bluebird';
-import { Route } from '../route';
+import { RpcEndpoint } from '../rpc-endpoint';
 
 const pm2 = bluebird.promisifyAll(pm2Sync);
 
-export class PM2 extends Route {
+export class PM2 extends RpcEndpoint {
 
-  getPath() { return '/pm2'; }
 
   getMiddleware() {
     return async function pm2Middlware(req, res, next) {

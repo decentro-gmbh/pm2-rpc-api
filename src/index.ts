@@ -2,12 +2,13 @@
  *
  */
 
-import * as nconf from 'nconf';
-import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import * as execa from 'execa';
+import * as nconf from 'nconf';
 import { ILogger, IServerOptions } from './interfaces';
 import { generateAuthMiddleware } from './authentication';
-import { PM2 } from './routes/pm2';
+import { RpcEndpoint } from './rpc-endpoint';
 
 
 export class Server {
@@ -111,8 +112,8 @@ export class Server {
     }
 
     // Register routes
-    const pm2 = new PM2(this.log);
-    pm2.register(server);
+    new RpcEndpoint('/execa', execa, this.log, true).register(server);
+    // TODO: error middleware
 
     // Perform further server initialization
     this.extendServer(server);

@@ -2,11 +2,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "module": "commonjs",
-    "target": "ES5",
+    "target": "ES6",
     "alwaysStrict": true,
     "outDir": "../dist",
     "baseUrl": "./",
-    "sourceMap": false,
+    "sourceMap": true,
     "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -16,7 +16,7 @@
       "./../node_modules/@types"
     ],
     "lib": [
-      "es5"
+      "es2016"
     ],
     "noImplicitReturns": true,
     "noUnusedLocals": true,

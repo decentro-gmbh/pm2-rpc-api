@@ -5,8 +5,10 @@
 import { Server } from '../src/index';
 
 const server = new Server({
+  host: '0.0.0.0',
+  envPrefix: 'API_',
   authentication: true,
-  apikeyhash: 'b37e50cedcd3e3f1ff64f4afc0422084ae694253cf399326868e07a35f4a45fb',
+  apikeyhash: '2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b',
 });
 
 server.start();
