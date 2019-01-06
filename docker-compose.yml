@@ -20,5 +20,5 @@ services:
         source: .
         target: /app/
     ports:
-      # Debug port
-      - "127.0.0.1:9126:9229"
+      - "127.0.0.1:9126:9229" # Debug port
+      - "127.0.0.1:1337:1337" # Default API port
