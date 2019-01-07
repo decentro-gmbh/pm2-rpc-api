@@ -16,6 +16,11 @@ export interface IServerOptions {
   logger?: ILogger;
 }
 
+export interface IEndpointOptions {
+  /** Whether to coerce requests without the 'jsonrpc' member to valid JSON-RPC 2.0 requests (adding 'jsonrpc': '2.0' and 'id': null, assuming the client is interested in the response) */
+  coerceRequestsToJsonRpc2?: boolean;
+}
+
 /** Interface for a logger object used to print log messages */
 export interface ILogger {
   /** Logging function for info messages (default: console.log) */

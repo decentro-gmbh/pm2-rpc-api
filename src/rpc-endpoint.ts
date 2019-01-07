@@ -1,8 +1,7 @@
 import * as Ajv from 'ajv';
 import { Express } from 'express';
-import { ILogger, IRpcResponse, IRpcRequest, IRpcModule } from './interfaces';
+import { ILogger, IRpcResponse, IRpcRequest, IRpcModule, IEndpointOptions } from './interfaces';
 import { rpcRequestSchema } from './rpc-schema';
-import * as uuidv4 from 'uuid/v4';
 
 /**
  * JSON-RPC 2.0 endpoint class
@@ -15,13 +14,13 @@ export class RpcEndpoint {
   protected module: IRpcModule;
   /** Logger used to print log messages */
   protected log: ILogger;
-  /** Whether to register an RPC helper middleware which transforms incoming requests to conform to the JSON-RPC 2.0 specification */
-  private rpcHelper: boolean;
+  /** Whether to coerce requests without the 'jsonrpc' member to valid JSON-RPC 2.0 requests */
+  private coerceRequestsToJsonRpc2: boolean;
 
-  constructor(path: string, module: any, rpcHelper: boolean = false) {
+  constructor(path: string, module: any, options: IEndpointOptions = {}) {
     this.path = path;
     this.module = module;
-    this.rpcHelper = rpcHelper;
+    this.coerceRequestsToJsonRpc2 = options.coerceRequestsToJsonRpc2;
   }
 
   /** Convenience method that normalizes the request body by always returning an array of rpc requests, even if only one is specified (both is allowed by the RFC) */
@@ -29,19 +28,25 @@ export class RpcEndpoint {
     return Array.isArray(req.body) ? req.body : [req.body];
   }
 
-  /** Assume that the client is not JSON-RPC aware but implicitly wants to use JSON-RPC 2.0 and is interested in the respones (ID must be set) */
-  static rpcHelperMiddleware(req, res, next) {
+  /**
+   * Attempt to coerce each request to be a valid JSON-RPC 2.0 request:
+   *   - Add 'jsonrpc': '2.0'
+   *   - Add 'id': null if no 'id' member was provided, assuming the client is interested in the response
+   */
+  static coerceRequestsToJsonRpc2Middleware(req, res, next) {
     RpcEndpoint.getRpcRequests(req).forEach((rpcRequest) => {
-      if (typeof rpcRequest === 'object' && !rpcRequest.jsonrpc) {
+      if (typeof rpcRequest === 'object' && !rpcRequest.hasOwnProperty('jsonrpc')) {
         rpcRequest.jsonrpc = '2.0';
-        rpcRequest.id = rpcRequest.id || uuidv4();
+        if (!rpcRequest.hasOwnProperty('id')) {
+          rpcRequest.id = null;
+        }
       }
     });
 
     return next();
   }
 
-  /** Check whether the incoming request body is a valid JSON-RPC 2.0 request object (throw an error and terminate the request otherwise)  */
+  /** Check whether the incoming request body is a valid JSON-RPC 2.0 request object (terminate the request otherwise)  */
   static validateRequestBody(req, res, next) {
     const ajv = new Ajv();
     const validate: Ajv.ValidateFunction = ajv.compile(rpcRequestSchema);
@@ -58,8 +63,8 @@ export class RpcEndpoint {
 
   /**
    * Check whether the specified method exists
-   * @param method Method-name to check
-   * @throws Throws an error if the method does not exist
+   * @param method Method name to check
+   * @throws Throws a 'Method not found' error if the method does not exist
    */
   private checkMethodExistence(method: string) {
     if (!this.module[method] || typeof this.module[method] !== 'function') {
@@ -135,8 +140,8 @@ export class RpcEndpoint {
    * @param server Express server object
    */
   public register(server: Express) {
-    if (this.rpcHelper) {
-      server.post(this.path, RpcEndpoint.rpcHelperMiddleware);
+    if (this.coerceRequestsToJsonRpc2) {
+      server.post(this.path, RpcEndpoint.coerceRequestsToJsonRpc2Middleware);
     }
     server.post(this.path, RpcEndpoint.validateRequestBody);
     server.post(this.path, this.executeRpc.bind(this));
