@@ -1,12 +1,11 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import * as nconf from 'nconf';
 import { Server } from 'http';
-import { ILogger, IServerOptions, IEndpointOptions } from './interfaces';
+import * as nconf from 'nconf';
 import { generateAuthMiddleware } from './authentication';
+import { IEndpointOptions, ILogger, IServerOptions } from './interfaces';
 import { RpcEndpoint } from './rpc-endpoint';
 export { RpcEndpoint } from './rpc-endpoint';
-
 
 /** RPC Server class */
 export class RpcServer {
@@ -19,14 +18,14 @@ export class RpcServer {
   private authentication: boolean;
   private apikeyhash: null | string;
 
-  private endpoints: Array<RpcEndpoint> = [];
+  private endpoints: RpcEndpoint[] = [];
   private httpServer: Server = null;
 
   constructor(options: IServerOptions = {}) {
     this.log = options.logger || {
-      info: msg => console.log(`[INFO] ${msg}`), // tslint:disable-line:no-console
-      warn: msg => console.log(`[WARNING] ${msg}`), // tslint:disable-line:no-console
-      err: msg => console.log(`[ERROR] ${msg}`), // tslint:disable-line:no-console
+      info: (msg) => console.log(`[INFO] ${msg}`), // tslint:disable-line:no-console
+      warn: (msg) => console.log(`[WARNING] ${msg}`), // tslint:disable-line:no-console
+      err: (msg) => console.log(`[ERROR] ${msg}`), // tslint:disable-line:no-console
     };
 
     this.envPrefix = (options.envPrefix || 'RPC_SERVER_').toLowerCase();

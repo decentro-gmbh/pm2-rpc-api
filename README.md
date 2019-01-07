@@ -2,7 +2,7 @@
 
 [![](https://img.shields.io/badge/TypeScript-v3-blue.svg?style=flat)](https://github.com/decentro-gmbh/rpc-automagic/blob/master/package.json
 ) [![](https://img.shields.io/npm/v/rpc-automagic.svg)](https://www.npmjs.com/package/rpc-automagic
-) [![](https://img.shields.io/snyk/vulnerabilities/npm/rpc-automagic.svg)](https://www.npmjs.com/package/rpc-automagic
+) [![](https://img.shields.io/snyk/vulnerabilities/npm/rpc-automagic.svg)](https://snyk.io/test/npm/rpc-automagic
 ) [![](https://img.shields.io/github/license/decentro-gmbh/rpc-automagic.svg?style=flat)](https://github.com/decentro-gmbh/rpc-automagic/blob/master/LICENSE)
 
 Automagically create HTTP [JSON-RPC 2.0](https://www.jsonrpc.org/specification) endpoints for any node module!

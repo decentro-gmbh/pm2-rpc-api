@@ -2,8 +2,8 @@
  * Authentication middleware
  */
 
-import { ILogger } from './interfaces';
 import * as crypto from 'crypto';
+import { ILogger } from './interfaces';
 
 export function generateAuthMiddleware(apiKeyHash: string, log: ILogger) {
   return (req, res, next) => {

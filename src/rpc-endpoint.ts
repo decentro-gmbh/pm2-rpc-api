@@ -1,6 +1,6 @@
 import * as Ajv from 'ajv';
 import { Express } from 'express';
-import { ILogger, IRpcResponse, IRpcRequest, IRpcModule, IEndpointOptions } from './interfaces';
+import { IEndpointOptions, ILogger, IRpcModule, IRpcRequest, IRpcResponse } from './interfaces';
 import { rpcRequestSchema } from './rpc-schema';
 
 /**
@@ -24,7 +24,7 @@ export class RpcEndpoint {
   }
 
   /** Convenience method that normalizes the request body by always returning an array of rpc requests, even if only one is specified (both is allowed by the RFC) */
-  static getRpcRequests(req): Array<IRpcRequest> {
+  static getRpcRequests(req): IRpcRequest[] {
     return Array.isArray(req.body) ? req.body : [req.body];
   }
 
@@ -81,7 +81,7 @@ export class RpcEndpoint {
    * @param method Method to execute
    * @param params Parameters passed to the method invocation
    */
-  protected async execute(method: string, params: Array<any>): Promise<any> {
+  protected async execute(method: string, params: any[]): Promise<any> {
     const result = await this.module[method](...params);
     return result;
   }
@@ -118,7 +118,7 @@ export class RpcEndpoint {
       }
     }));
 
-    const responses: Array<IRpcResponse> = results.map((result, index) => {
+    const responses: IRpcResponse[] = results.map((result, index) => {
       return {
         jsonrpc: '2.0',
         id: rpcRequests[index].id,
@@ -126,7 +126,7 @@ export class RpcEndpoint {
       };
     });
 
-    const statusCode = responses.filter(rsp => rsp.error).length > 0 ? 500 : 200;
+    const statusCode = responses.filter((rsp) => rsp.error).length > 0 ? 500 : 200;
 
     if (!Array.isArray(req.body)) {
       return res.status(statusCode).json(responses[0]);

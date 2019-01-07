@@ -24,11 +24,11 @@ export interface IEndpointOptions {
 /** Interface for a logger object used to print log messages */
 export interface ILogger {
   /** Logging function for info messages (default: console.log) */
-  info?: Function;
+  info?: (msg: string) => void;
   /** Logging function for warnings (default: console.log) */
-  warn?: Function;
+  warn?: (msg: string) => void;
   /** Logging function for errors (default: console.log) */
-  err?: Function;
+  err?: (msg: string) => void;
 }
 
 /** Interface for modules that are exposed via an RPC endpoint */
@@ -46,7 +46,7 @@ export interface IRpcRequest {
   /** A String containing the name of the method to be invoked. */
   method: string;
   /** A structured value that holds the parameter values to be used during the invocation of the method. */
-  params: undefined | Array<any>;
+  params: undefined | any[];
 }
 
 /** Interface for JSON-RPC 2.0 responses (https://www.jsonrpc.org/specification#response_object) */
@@ -56,7 +56,7 @@ export interface IRpcResponse {
   /** Identifier whose value corresponds to the one given in the RPC request. */
   id: string | number | null;
   /** Result of the RPC call on successful execution. */
-  result?: Array<any> | Object;
+  result?: any[] | object;
   /** Error that occurred during the execuetion of the RPC call. */
   error?: IRpcError;
 }

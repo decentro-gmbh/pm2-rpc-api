@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/decentro-gmbh/rpc-automagic/issues"
   },
-  "homepage": "https://github.com/decentro-gmbh/rpc-automagic#readme",
+  "homepage": "https://decentro-gmbh.github.io/rpc-automagic/",
   "dependencies": {
     "ajv": "^6.6.2",
     "body-parser": "^1.18.3",
@@ -38,6 +38,7 @@
     "nconf": "^0.10.0"
   },
   "devDependencies": {
+    "@decentro/tslint": "^1.0.1",
     "@types/es6-promise": "^3.3.0",
     "@types/express": "^4.16.0",
     "@types/jest": "^23.3.10",
