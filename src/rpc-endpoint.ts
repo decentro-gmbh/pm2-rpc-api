@@ -88,8 +88,20 @@ export class RpcEndpoint {
     const results = await Promise.all(rpcRequests.map(async (rpcRequest) => {
       try {
         this.checkMethodExistence(rpcRequest.method);
-        const result = await this.execute(rpcRequest.method, rpcRequest.params || []);
-        return { result };
+
+        // Execute RPC
+        const execPromise = this.execute(rpcRequest.method, rpcRequest.params || []);
+
+        // Check if the client requested a notification
+        if (rpcRequest.hasOwnProperty('id')) {
+          // Normal call -> wait for the method call to finish and return the result
+          const result = await execPromise;
+          return { result };
+        } else {
+          // Notification -> do not wait for the method call to finish and return immediately
+          return { result: {} };
+        }
+
       } catch (err) {
         return {
           error: {
