@@ -51,7 +51,7 @@ export interface IRpcResponse {
   /** Identifier whose value corresponds to the one given in the RPC request. */
   id: string | number | null;
   /** Result of the RPC call on successful execution. */
-  result?: Array<any>|Object;
+  result?: Array<any> | Object;
   /** Error that occurred during the execuetion of the RPC call. */
   error?: IRpcError;
 }

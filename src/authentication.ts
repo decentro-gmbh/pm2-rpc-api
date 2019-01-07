@@ -2,8 +2,8 @@
  * Authentication middleware
  */
 
- import { ILogger } from './interfaces';
- import * as crypto from 'crypto';
+import { ILogger } from './interfaces';
+import * as crypto from 'crypto';
 
 export function generateAuthMiddleware(apiKeyHash: string, log: ILogger) {
   return (req, res, next) => {
@@ -20,7 +20,7 @@ export function generateAuthMiddleware(apiKeyHash: string, log: ILogger) {
 
     if (hash !== apiKeyHash) {
       log.warn('Unsuccessful authentication attempt (incorrect API key)');
-      return res.status(401).json({ error: 'WRONG_APIKEY', message: 'The provided API key is incorrect'});
+      return res.status(401).json({ error: 'WRONG_APIKEY', message: 'The provided API key is incorrect' });
     }
 
     // Authenticated successfully
