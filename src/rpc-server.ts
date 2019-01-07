@@ -1,17 +1,14 @@
-/**
- *
- */
-
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import * as execa from 'execa';
+import { Express } from 'express';
 import * as nconf from 'nconf';
 import { ILogger, IServerOptions } from './interfaces';
 import { generateAuthMiddleware } from './authentication';
 import { RpcEndpoint } from './rpc-endpoint';
-import { Pm2Endpoint } from './endpoints/pm2';
+export { RpcEndpoint } from './rpc-endpoint';
 
 
+/** RPC Server class */
 export class RpcServer {
   private envPrefix: string;
   private log: ILogger;
@@ -20,7 +17,9 @@ export class RpcServer {
   private port: number;
   private disabled: boolean;
   private authentication: boolean;
-  private apikeyhash: null|string;
+  private apikeyhash: null | string;
+
+  private endpoints: Array<RpcEndpoint> = [];
 
   constructor(options: IServerOptions = {}) {
     this.log = options.logger || {
@@ -29,7 +28,7 @@ export class RpcServer {
       err: msg => console.log(`[ERROR] ${msg}`), // tslint:disable-line:no-console
     };
 
-    this.envPrefix = (options.envPrefix || 'PM2API_').toLowerCase();
+    this.envPrefix = (options.envPrefix || 'RPC_SERVER_').toLowerCase();
     this.log.info(`Loading environment variables with prefix: '${this.envPrefix.toUpperCase()}'`);
 
     this.initialize(options);
@@ -87,17 +86,33 @@ export class RpcServer {
     this.apikeyhash = store.get('apikeyhash');
   }
 
-  /** Override in sub-class to extend the Express server, will be called before starting to listen */
+  /** Register all endpoints to the given server object */
   protected registerRpcEndpoints(server) {
-    new RpcEndpoint('/execa', execa, this.log, true).register(server);
-    new Pm2Endpoint(this.log, true).register(server);
+    this.endpoints.forEach((rpcEndpoint) => {
+      this.log.info(`Registering new endpoint: ${rpcEndpoint.getPath()}`);
+      rpcEndpoint.register(server);
+    });
+  }
+
+  public addEndpoint(path: string, module?: any);
+  public addEndpoint(rpcEndpoint: RpcEndpoint): void;
+  public addEndpoint(param1: string | RpcEndpoint, param2?: any) {
+    if (typeof param1 === 'string' && param2) {
+      const path: string = param1;
+      const module = param2;
+      const rpcEndpoint = new RpcEndpoint(path, module);
+      this.endpoints.push(rpcEndpoint);
+    } else if (typeof param1 === 'object') {
+      const rpcEndpoint: RpcEndpoint = param1;
+      this.endpoints.push(rpcEndpoint);
+    }
   }
 
   /** Start the HTTP JSON-RPC API */
-  public start(): void {
+  public start(): Express {
     if (this.disabled) {
       this.log.err('Server is disabled, exiting.');
-      return;
+      return null;
     }
 
     const server = express();
@@ -136,6 +151,8 @@ export class RpcServer {
     server.listen(this.port, this.host, () => {
       this.log.info(`Server listening on ${this.host}:${this.port}`);
     });
+
+    return server;
   }
 
 }

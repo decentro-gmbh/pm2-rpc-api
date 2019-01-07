@@ -2,13 +2,19 @@
  * Example server
  */
 
+import * as execa from 'execa';
+import * as child_process from 'child_process';
 import { RpcServer } from '../src/rpc-server';
+import { Pm2Endpoint } from './pm2';
 
 const server = new RpcServer({
   host: '0.0.0.0',
-  envPrefix: 'API_',
   authentication: true,
-  apikeyhash: '2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b',
+  envPrefix: 'SERVER_',
+  apikeyhash: '959c9f50aef1bc129a0e16564319a1b36515d570513079b6c73c72a5709abdce', // sha256('secr3t')
 });
 
+server.addEndpoint('/child_process', child_process);
+server.addEndpoint('/execa', execa);
+server.addEndpoint(new Pm2Endpoint());
 server.start();

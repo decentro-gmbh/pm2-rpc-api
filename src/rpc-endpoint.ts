@@ -1,4 +1,5 @@
 import * as Ajv from 'ajv';
+import { Express } from 'express';
 import { ILogger, IRpcResponse, IRpcRequest, IRpcModule } from './interfaces';
 import { rpcRequestSchema } from './rpc-schema';
 import * as uuidv4 from 'uuid/v4';
@@ -17,10 +18,9 @@ export class RpcEndpoint {
   /** Whether to register an RPC helper middleware which transforms incoming requests to conform to the JSON-RPC 2.0 specification */
   private rpcHelper: boolean;
 
-  constructor(path: string, module: any, log: ILogger, rpcHelper: boolean = false) {
+  constructor(path: string, module: any, rpcHelper: boolean = false) {
     this.path = path;
     this.module = module;
-    this.log = log;
     this.rpcHelper = rpcHelper;
   }
 
@@ -33,8 +33,8 @@ export class RpcEndpoint {
   static rpcHelperMiddleware(req, res, next) {
     RpcEndpoint.getRpcRequests(req).forEach((rpcRequest) => {
       if (typeof rpcRequest === 'object' && !rpcRequest.jsonrpc) {
-      rpcRequest.jsonrpc = '2.0';
-      rpcRequest.id = rpcRequest.id || uuidv4();
+        rpcRequest.jsonrpc = '2.0';
+        rpcRequest.id = rpcRequest.id || uuidv4();
       }
     });
 
@@ -122,11 +122,21 @@ export class RpcEndpoint {
    * Register the RPC endpoint with the given Express server
    * @param server Express server object
    */
-  public register(server): void {
+  public register(server: Express) {
     if (this.rpcHelper) {
       server.post(this.path, RpcEndpoint.rpcHelperMiddleware);
     }
     server.post(this.path, RpcEndpoint.validateRequestBody);
     server.post(this.path, this.executeRpc.bind(this));
+  }
+
+  /** Setter for the 'log' attribute */
+  public setLogger(logger: ILogger): void {
+    this.log = logger;
+  }
+
+  /** Getter for the 'path' attribute */
+  public getPath(): string {
+    return this.path;
   }
 }
