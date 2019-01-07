@@ -1,3 +1,18 @@
-# Simple Node RPC Server
+# Automagic RPC-API Generation
 
-Simple HTTP JSON-RPC API for administrative tasks on PM2 managed node containers
+Automagically create HTTP JSON-RPC 2.0 endpoints for any node module!
+
+## Example
+
+```ts
+import * as execa from 'execa';
+import { RpcServer } from 'rpc-automagic';
+
+const server = new RpcServer();
+
+server.addEndpoint({
+  '/execa': execa,
+})
+
+server.start();
+```

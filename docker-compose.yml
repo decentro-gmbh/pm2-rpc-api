@@ -1,5 +1,5 @@
 ####################################################################################
-# Docker-compose file for spinning up a pm2-rpc-api container
+# Docker-compose file for spinning up a rpc-automagic container
 # @author Benjamin Assadsolimani
 #
 # USAGE: docker-compose up -d
@@ -9,12 +9,12 @@
 version: '3.2'
 
 services:
-  pm2-rpc-api:
-    container_name: pm2-rpc-api
+  rpc-automagic:
+    container_name: rpc-automagic
     build:
       context: .
       dockerfile: Dockerfile
-    image: pm2-rpc-api:latest
+    image: rpc-automagic:latest
     volumes:
       - type: bind
         source: .

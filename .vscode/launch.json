@@ -4,7 +4,7 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "pm2-rpc-api",
+      "name": "rpc-automagic",
       "port": 9126,
       "address": "localhost",
       "localRoot": "${workspaceFolder}",

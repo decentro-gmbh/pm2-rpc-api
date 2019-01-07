@@ -1,5 +1,5 @@
 {
-  "name": "pm2-rpc-api",
+  "name": "rpc-automagic",
   "version": "1.0.0",
   "description": "Simple HTTP JSON-RPC API for administrative tasks on PM2 managed node containers",
   "main": "dist/rpc-server.js",
@@ -19,26 +19,22 @@
   "prepublishOnly": "npm run build",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/decentro-gmbh/pm2-rpc-api.git"
+    "url": "git+https://github.com/decentro-gmbh/rpc-automagic.git"
   },
   "keywords": [
-    "pm2",
     "json-rpc"
   ],
   "author": "Decentro GmbH",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/decentro-gmbh/pm2-rpc-api/issues"
+    "url": "https://github.com/decentro-gmbh/rpc-automagic/issues"
   },
-  "homepage": "https://github.com/decentro-gmbh/pm2-rpc-api#readme",
+  "homepage": "https://github.com/decentro-gmbh/rpc-automagic#readme",
   "dependencies": {
     "ajv": "^6.6.2",
-    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
-    "execa": "^1.0.0",
     "express": "^4.16.4",
     "nconf": "^0.10.0",
-    "pm2": "^3.2.4",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
@@ -48,7 +44,10 @@
     "@types/jest": "^23.3.10",
     "@types/nconf": "0.0.37",
     "@types/node": "^10.12.18",
+    "bluebird": "^3.5.3",
+    "execa": "^1.0.0",
     "jest": "^23.6.0",
+    "pm2": "^3.2.4",
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "tslint": "^5.12.0",
