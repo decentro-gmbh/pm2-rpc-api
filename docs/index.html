@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>pm2-rpc-api</title>
+	<title>rpc-automagic</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">pm2-rpc-api</a>
+					<a href="index.html" class="title">rpc-automagic</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> pm2-rpc-api</h1>
+			<h1> rpc-automagic</h1>
 		</div>
 	</div>
 </header>
@@ -64,8 +64,47 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<h1 id="simple-node-rpc-server">Simple Node RPC Server</h1>
-				<p>Simple HTTP JSON-RPC API for administrative tasks on PM2 managed node containers</p>
+				<h1 id="automagic-rpc-api-generation">Automagic RPC-API Generation</h1>
+				<p>Automagically create HTTP JSON-RPC 2.0 endpoints for any node module!</p>
+				<h2 id="installation">Installation</h2>
+				<p>Installation is straight forward with npm:</p>
+				<pre><code>npm <span class="hljs-selector-tag">i</span> rpc-automagic</code></pre><h2 id="example">Example</h2>
+				<ol>
+					<li>Create a simple RPC server allowing the execution of shell commands using the <code>execa</code> module:
+						<code>`</code>ts
+						import * as execa from &#39;execa&#39;;
+					import { RpcServer } from &#39;rpc-automagic&#39;;</li>
+				</ol>
+				<p>const server = new RpcServer();
+					server.addEndpoint(&#39;/execa&#39;, execa);
+				server.start();</p>
+				<pre><code>
+<span class="hljs-number">2.</span> Send <span class="hljs-keyword">a</span> POST request <span class="hljs-built_in">to</span> <span class="hljs-keyword">http</span>://localhost:<span class="hljs-number">1337</span>/execa</code></pre><p>{
+					&quot;jsonrpc&quot;: &quot;2.0&quot;,
+					&quot;id&quot;: 1,
+					&quot;method&quot;: &quot;shell&quot;,
+					&quot;params&quot;: [
+					&quot;whoami&quot;
+					]
+				}</p>
+				<pre><code>
+<span class="hljs-number">3.</span> <span class="hljs-type">Parse</span> the response <span class="hljs-class"><span class="hljs-keyword">object</span></span>:</code></pre><p>{
+					&quot;jsonrpc&quot;: &quot;2.0&quot;,
+					&quot;id&quot;: 1,
+					&quot;result&quot;: {
+					&quot;stdout&quot;: &quot;root&quot;,
+					&quot;stderr&quot;: &quot;&quot;,
+					&quot;code&quot;: 0,
+					&quot;failed&quot;: false,
+					&quot;killed&quot;: false,
+					&quot;signal&quot;: null,
+					&quot;cmd&quot;: &quot;/bin/sh -c whoami&quot;,
+					&quot;timedOut&quot;: false
+					}
+					}
+				<code>`</code></p>
+				<h2 id="api-documentation">API Documentation</h2>
+				<p>The API documentation can be found here: <a href="https://decentro-gmbh.github.io/rpc-automagic/">https://decentro-gmbh.github.io/rpc-automagic/</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -76,9 +115,6 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_authentication_.html">"authentication"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_endpoints_pm2_.html">"endpoints/pm2"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_interfaces_.html">"interfaces"</a>

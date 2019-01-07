@@ -117,6 +117,7 @@ export class RpcServer {
 
     const server = express();
     server.use(bodyParser.json());
+    server.disable('x-powered-by');
 
     // Register authentication middleware
     if (!this.authentication && this.apikeyhash) {

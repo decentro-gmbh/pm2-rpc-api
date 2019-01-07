@@ -112,7 +112,7 @@ export class RpcEndpoint {
     const statusCode = responses.filter(rsp => rsp.error).length > 0 ? 500 : 200;
 
     if (!Array.isArray(req.body)) {
-      return res.status(statusCode).json([responses]);
+      return res.status(statusCode).json(responses[0]);
     }
 
     return res.status(statusCode).json(responses);
