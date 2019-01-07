@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;interfaces&quot; | rpc-automagic</title>
+	<title>IEndpointOptions | rpc-automagic</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,32 +56,55 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_interfaces_.html">&quot;interfaces&quot;</a>
+					<a href="../modules/_interfaces_.html">&quot;interfaces&quot;</a>
+				</li>
+				<li>
+					<a href="_interfaces_.iendpointoptions.html">IEndpointOptions</a>
 				</li>
 			</ul>
-			<h1>External module &quot;interfaces&quot;</h1>
+			<h1>Interface IEndpointOptions</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">IEndpointOptions</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_interfaces_.iendpointoptions.html" class="tsd-kind-icon">IEndpoint<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_interfaces_.ilogger.html" class="tsd-kind-icon">ILogger</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_interfaces_.irpcerror.html" class="tsd-kind-icon">IRpc<wbr>Error</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_interfaces_.irpcmodule.html" class="tsd-kind-icon">IRpc<wbr>Module</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_interfaces_.irpcrequest.html" class="tsd-kind-icon">IRpc<wbr>Request</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_interfaces_.irpcresponse.html" class="tsd-kind-icon">IRpc<wbr>Response</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_interfaces_.iserveroptions.html" class="tsd-kind-icon">IServer<wbr>Options</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interfaces_.iendpointoptions.html#coercerequeststojsonrpc2" class="tsd-kind-icon">coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2</a></li>
 							</ul>
 						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="coercerequeststojsonrpc2" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2</h3>
+					<div class="tsd-signature tsd-kind-icon">coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/interfaces.ts#L21">interfaces.ts:21</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether to coerce requests without the &#39;jsonrpc&#39; member to valid JSON-RPC 2.0 requests (adding &#39;jsonrpc&#39;: &#39;2.0&#39; and &#39;id&#39;: null, assuming the client is interested in the response)</p>
+						</div>
 					</div>
 				</section>
 			</section>
@@ -93,44 +116,53 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_authentication_.html">"authentication"</a>
+						<a href="../modules/_authentication_.html">"authentication"</a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_interfaces_.html">"interfaces"</a>
+						<a href="../modules/_interfaces_.html">"interfaces"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_rpc_endpoint_.html">"rpc-<wbr>endpoint"</a>
+						<a href="../modules/_rpc_endpoint_.html">"rpc-<wbr>endpoint"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_rpc_schema_.html">"rpc-<wbr>schema"</a>
+						<a href="../modules/_rpc_schema_.html">"rpc-<wbr>schema"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_rpc_server_.html">"rpc-<wbr>server"</a>
+						<a href="../modules/_rpc_server_.html">"rpc-<wbr>server"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_interfaces_.iendpointoptions.html" class="tsd-kind-icon">IEndpoint<wbr>Options</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_interfaces_.iendpointoptions.html#coercerequeststojsonrpc2" class="tsd-kind-icon">coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_interfaces_.iendpointoptions.html" class="tsd-kind-icon">IEndpoint<wbr>Options</a>
+						<a href="_interfaces_.ilogger.html" class="tsd-kind-icon">ILogger</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_interfaces_.ilogger.html" class="tsd-kind-icon">ILogger</a>
+						<a href="_interfaces_.irpcerror.html" class="tsd-kind-icon">IRpc<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_interfaces_.irpcerror.html" class="tsd-kind-icon">IRpc<wbr>Error</a>
+						<a href="_interfaces_.irpcmodule.html" class="tsd-kind-icon">IRpc<wbr>Module</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_interfaces_.irpcmodule.html" class="tsd-kind-icon">IRpc<wbr>Module</a>
+						<a href="_interfaces_.irpcrequest.html" class="tsd-kind-icon">IRpc<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_interfaces_.irpcrequest.html" class="tsd-kind-icon">IRpc<wbr>Request</a>
+						<a href="_interfaces_.irpcresponse.html" class="tsd-kind-icon">IRpc<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_interfaces_.irpcresponse.html" class="tsd-kind-icon">IRpc<wbr>Response</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_interfaces_.iserveroptions.html" class="tsd-kind-icon">IServer<wbr>Options</a>
+						<a href="_interfaces_.iserveroptions.html" class="tsd-kind-icon">IServer<wbr>Options</a>
 					</li>
 				</ul>
 			</nav>

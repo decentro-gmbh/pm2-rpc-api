@@ -98,10 +98,10 @@
 						<section class="tsd-index-section tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_rpc_endpoint_.rpcendpoint.html#coercerequeststojsonrpc2" class="tsd-kind-icon">coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_rpc_endpoint_.rpcendpoint.html#log" class="tsd-kind-icon">log</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_rpc_endpoint_.rpcendpoint.html#module" class="tsd-kind-icon">module</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_rpc_endpoint_.rpcendpoint.html#path" class="tsd-kind-icon">path</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_rpc_endpoint_.rpcendpoint.html#rpchelper" class="tsd-kind-icon">rpc<wbr>Helper</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -113,8 +113,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_rpc_endpoint_.rpcendpoint.html#getpath" class="tsd-kind-icon">get<wbr>Path</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_rpc_endpoint_.rpcendpoint.html#register" class="tsd-kind-icon">register</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_rpc_endpoint_.rpcendpoint.html#setlogger" class="tsd-kind-icon">set<wbr>Logger</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_rpc_endpoint_.rpcendpoint.html#coercerequeststojsonrpc2middleware" class="tsd-kind-icon">coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2<wbr>Middleware</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_rpc_endpoint_.rpcendpoint.html#getrpcrequests" class="tsd-kind-icon">get<wbr>Rpc<wbr>Requests</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_rpc_endpoint_.rpcendpoint.html#rpchelpermiddleware" class="tsd-kind-icon">rpc<wbr>Helper<wbr>Middleware</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_rpc_endpoint_.rpcendpoint.html#validaterequestbody" class="tsd-kind-icon">validate<wbr>Request<wbr>Body</a></li>
 							</ul>
 						</section>
@@ -127,13 +127,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Rpc<wbr>Endpoint<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, module<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, rpcHelper<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_rpc_endpoint_.rpcendpoint.html" class="tsd-signature-type">RpcEndpoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Rpc<wbr>Endpoint<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, module<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_interfaces_.iendpointoptions.html" class="tsd-signature-type">IEndpointOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_rpc_endpoint_.rpcendpoint.html" class="tsd-signature-type">RpcEndpoint</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L19">rpc-endpoint.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L18">rpc-endpoint.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -145,7 +145,7 @@
 									<h5>module: <span class="tsd-signature-type">any</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> rpcHelper: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <a href="../interfaces/_interfaces_.iendpointoptions.html" class="tsd-signature-type">IEndpointOptions</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_rpc_endpoint_.rpcendpoint.html" class="tsd-signature-type">RpcEndpoint</a></h4>
@@ -155,13 +155,28 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="coercerequeststojsonrpc2" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2</h3>
+					<div class="tsd-signature tsd-kind-icon">coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L18">rpc-endpoint.ts:18</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether to coerce requests without the &#39;jsonrpc&#39; member to valid JSON-RPC 2.0 requests</p>
+						</div>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="log" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> log</h3>
 					<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_interfaces_.ilogger.html" class="tsd-signature-type">ILogger</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L17">rpc-endpoint.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L16">rpc-endpoint.ts:16</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -176,7 +191,7 @@
 					<div class="tsd-signature tsd-kind-icon">module<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_interfaces_.irpcmodule.html" class="tsd-signature-type">IRpcModule</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L15">rpc-endpoint.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L14">rpc-endpoint.ts:14</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -191,27 +206,12 @@
 					<div class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L13">rpc-endpoint.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L12">rpc-endpoint.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Path the endpoint is registered at</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="rpchelper" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> rpc<wbr>Helper</h3>
-					<div class="tsd-signature tsd-kind-icon">rpc<wbr>Helper<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L19">rpc-endpoint.ts:19</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Whether to register an RPC helper middleware which transforms incoming requests to conform to the JSON-RPC 2.0 specification</p>
 						</div>
 					</div>
 				</section>
@@ -228,7 +228,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L64">rpc-endpoint.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L69">rpc-endpoint.ts:69</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -237,7 +237,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>Throws an error if the method does not exist</p>
+									<dd><p>Throws a &#39;Method not found&#39; error if the method does not exist</p>
 									</dd>
 								</dl>
 							</div>
@@ -246,7 +246,7 @@
 								<li>
 									<h5>method: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Method-name to check</p>
+										<p>Method name to check</p>
 									</div>
 								</li>
 							</ul>
@@ -264,7 +264,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L79">rpc-endpoint.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L84">rpc-endpoint.ts:84</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -301,7 +301,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L85">rpc-endpoint.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L90">rpc-endpoint.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -335,7 +335,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L139">rpc-endpoint.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L156">rpc-endpoint.ts:156</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -357,7 +357,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L125">rpc-endpoint.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L142">rpc-endpoint.ts:142</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -388,7 +388,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L134">rpc-endpoint.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L151">rpc-endpoint.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -407,49 +407,25 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="getrpcrequests" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Rpc<wbr>Requests</h3>
+					<a name="coercerequeststojsonrpc2middleware" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2<wbr>Middleware</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Rpc<wbr>Requests<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_interfaces_.irpcrequest.html" class="tsd-signature-type">IRpcRequest</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2<wbr>Middleware<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L28">rpc-endpoint.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L36">rpc-endpoint.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Convenience method that normalizes the request body by always returning an array of rpc requests, even if only one is specified (both is allowed by the RFC)</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>req: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_interfaces_.irpcrequest.html" class="tsd-signature-type">IRpcRequest</a><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="rpchelpermiddleware" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> rpc<wbr>Helper<wbr>Middleware</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">rpc<wbr>Helper<wbr>Middleware<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L33">rpc-endpoint.ts:33</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Assume that the client is not JSON-RPC aware but implicitly wants to use JSON-RPC 2.0 and is interested in the respones (ID must be set)</p>
+									<p>Attempt to coerce each request to be a valid JSON-RPC 2.0 request:</p>
+									<ul>
+										<li>Add &#39;jsonrpc&#39;: &#39;2.0&#39;</li>
+										<li>Add &#39;id&#39;: null if no &#39;id&#39; member was provided, assuming the client is interested in the response</li>
+									</ul>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -469,6 +445,34 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getrpcrequests" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Rpc<wbr>Requests</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Rpc<wbr>Requests<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_interfaces_.irpcrequest.html" class="tsd-signature-type">IRpcRequest</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L27">rpc-endpoint.ts:27</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Convenience method that normalizes the request body by always returning an array of rpc requests, even if only one is specified (both is allowed by the RFC)</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>req: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_interfaces_.irpcrequest.html" class="tsd-signature-type">IRpcRequest</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="validaterequestbody" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> validate<wbr>Request<wbr>Body</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -478,12 +482,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/d89736c/src/rpc-endpoint.ts#L45">rpc-endpoint.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/966d50d/src/rpc-endpoint.ts#L50">rpc-endpoint.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Check whether the incoming request body is a valid JSON-RPC 2.0 request object (throw an error and terminate the request otherwise)</p>
+									<p>Check whether the incoming request body is a valid JSON-RPC 2.0 request object (terminate the request otherwise)</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -537,6 +541,9 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_rpc_endpoint_.rpcendpoint.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_rpc_endpoint_.rpcendpoint.html#coercerequeststojsonrpc2" class="tsd-kind-icon">coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="_rpc_endpoint_.rpcendpoint.html#log" class="tsd-kind-icon">log</a>
 							</li>
@@ -545,9 +552,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="_rpc_endpoint_.rpcendpoint.html#path" class="tsd-kind-icon">path</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_rpc_endpoint_.rpcendpoint.html#rpchelper" class="tsd-kind-icon">rpc<wbr>Helper</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_rpc_endpoint_.rpcendpoint.html#checkmethodexistence" class="tsd-kind-icon">check<wbr>Method<wbr>Existence</a>
@@ -568,10 +572,10 @@
 								<a href="_rpc_endpoint_.rpcendpoint.html#setlogger" class="tsd-kind-icon">set<wbr>Logger</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="_rpc_endpoint_.rpcendpoint.html#getrpcrequests" class="tsd-kind-icon">get<wbr>Rpc<wbr>Requests</a>
+								<a href="_rpc_endpoint_.rpcendpoint.html#coercerequeststojsonrpc2middleware" class="tsd-kind-icon">coerce<wbr>Requests<wbr>ToJson<wbr>Rpc2<wbr>Middleware</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="_rpc_endpoint_.rpcendpoint.html#rpchelpermiddleware" class="tsd-kind-icon">rpc<wbr>Helper<wbr>Middleware</a>
+								<a href="_rpc_endpoint_.rpcendpoint.html#getrpcrequests" class="tsd-kind-icon">get<wbr>Rpc<wbr>Requests</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="_rpc_endpoint_.rpcendpoint.html#validaterequestbody" class="tsd-kind-icon">validate<wbr>Request<wbr>Body</a>

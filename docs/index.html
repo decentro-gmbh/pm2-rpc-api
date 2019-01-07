@@ -64,45 +64,39 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<h1 id="automagic-rpc-api-generation">Automagic RPC-API Generation</h1>
-				<p>Automagically create HTTP JSON-RPC 2.0 endpoints for any node module!</p>
+				<h1 id="rpc-automagic">RPC Automagic</h1>
+				<p><a href="https://github.com/decentro-gmbh/rpc-automagic/blob/master/package.json"><img src="https://img.shields.io/badge/TypeScript-v3-blue.svg?style=flat" alt=""></a> <a href="https://www.npmjs.com/package/rpc-automagic"><img src="https://img.shields.io/npm/v/rpc-automagic.svg" alt=""></a> <a href="https://www.npmjs.com/package/rpc-automagic"><img src="https://img.shields.io/snyk/vulnerabilities/npm/rpc-automagic.svg" alt=""></a> <a href="https://github.com/decentro-gmbh/rpc-automagic/blob/master/LICENSE"><img src="https://img.shields.io/github/license/decentro-gmbh/rpc-automagic.svg?style=flat" alt=""></a></p>
+				<p>Automagically create HTTP <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0</a> endpoints for any node module!</p>
 				<h2 id="installation">Installation</h2>
 				<p>Installation is straight forward with npm:</p>
-				<pre><code>npm <span class="hljs-selector-tag">i</span> rpc-automagic</code></pre><h2 id="example">Example</h2>
-				<ol>
-					<li>Create a simple RPC server allowing the execution of shell commands using the <code>execa</code> module:
-						<code>`</code>ts
-						import * as execa from &#39;execa&#39;;
-					import { RpcServer } from &#39;rpc-automagic&#39;;</li>
-				</ol>
-				<p>const server = new RpcServer();
-					server.addEndpoint(&#39;/execa&#39;, execa);
-				server.start();</p>
-				<pre><code>
-<span class="hljs-number">2.</span> Send <span class="hljs-keyword">a</span> POST request <span class="hljs-built_in">to</span> <span class="hljs-keyword">http</span>://localhost:<span class="hljs-number">1337</span>/execa</code></pre><p>{
-					&quot;jsonrpc&quot;: &quot;2.0&quot;,
-					&quot;id&quot;: 1,
-					&quot;method&quot;: &quot;shell&quot;,
-					&quot;params&quot;: [
-					&quot;whoami&quot;
-					]
-				}</p>
-				<pre><code>
-<span class="hljs-number">3.</span> <span class="hljs-type">Parse</span> the response <span class="hljs-class"><span class="hljs-keyword">object</span></span>:</code></pre><p>{
-					&quot;jsonrpc&quot;: &quot;2.0&quot;,
-					&quot;id&quot;: 1,
-					&quot;result&quot;: {
-					&quot;stdout&quot;: &quot;root&quot;,
-					&quot;stderr&quot;: &quot;&quot;,
-					&quot;code&quot;: 0,
-					&quot;failed&quot;: false,
-					&quot;killed&quot;: false,
-					&quot;signal&quot;: null,
-					&quot;cmd&quot;: &quot;/bin/sh -c whoami&quot;,
-					&quot;timedOut&quot;: false
-					}
-					}
-				<code>`</code></p>
+				<pre><code>npm <span class="hljs-selector-tag">i</span> rpc-automagic</code></pre><h2 id="examples">Examples</h2>
+				<p>As simple as it gets: create a new RPC server, register an endpoint and start listening:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">const</span> { RpcServer } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rpc-automagic'</span>);
+
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> RpcServer({ host: <span class="hljs-string">'localhost'</span>, port: <span class="hljs-number">1337</span> });
+server.addEndpoint(<span class="hljs-string">'/math'</span>, <span class="hljs-built_in">Math</span>);
+server.start();</code></pre>
+				<p>Send a POST request to <a href="http://localhost:1337/math">http://localhost:1337/math</a></p>
+				<pre><code class="language-js">--&gt; { <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">"method"</span>: <span class="hljs-string">"pow"</span>, <span class="hljs-string">"params"</span>: [<span class="hljs-number">2</span>, <span class="hljs-number">10</span>] }
+&lt;-- { <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">"result"</span>: <span class="hljs-number">1024</span>}</code></pre>
+				<h4 id="advanced-example">Advanced example</h4>
+				<pre><code class="language-ts"><span class="hljs-keyword">const</span> { RpcServer } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rpc-automagic'</span>);
+
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> RpcServer({ host: <span class="hljs-string">'localhost'</span>, port: <span class="hljs-number">1337</span> });
+server.addEndpoint(<span class="hljs-string">'/console'</span>, <span class="hljs-built_in">console</span>);
+server.addEndpoint(<span class="hljs-string">'/custom'</span>, {
+  pick(...items) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">`I like this one best: <span class="hljs-subst">${items[Math.floor(Math.random() * items.length)]}</span>`</span>;
+  },
+});
+server.start();</code></pre>
+				<pre><code class="language-js"><span class="hljs-comment">// POST localhost:1337/console</span>
+--&gt; { <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>, <span class="hljs-string">"method"</span>: <span class="hljs-string">"log"</span>, <span class="hljs-string">"params"</span>: [<span class="hljs-string">"Hello World"</span>] }
+&lt;-- { <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>, <span class="hljs-string">"result"</span>: {} }
+
+<span class="hljs-comment">// POST localhost:1337/custom</span>
+--&gt; { <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">"method"</span>: <span class="hljs-string">"pick"</span>, <span class="hljs-string">"params"</span>: [<span class="hljs-string">"Margherita"</span>, <span class="hljs-string">"Frutti di Mare"</span>, <span class="hljs-string">"Quattro Formaggi"</span>] }
+&lt;-- { <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">"result"</span>: <span class="hljs-string">"I like this one best: Margherita"</span> }</code></pre>
 				<h2 id="api-documentation">API Documentation</h2>
 				<p>The API documentation can be found here: <a href="https://decentro-gmbh.github.io/rpc-automagic/">https://decentro-gmbh.github.io/rpc-automagic/</a></p>
 			</div>
