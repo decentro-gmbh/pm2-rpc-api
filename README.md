@@ -14,10 +14,16 @@ Installation is straight forward with npm:
 npm i rpc-automagic
 ```
 
+## Installation
+
+Installation is straight forward with npm:
+```
+npm i rpc-automagic
+```
+
 ## Example
 
 1. Create a simple RPC server allowing the execution of shell commands using the `execa` module:
-
 ```ts
 const execa = require('execa');
 const { RpcServer } = require('rpc-automagic');

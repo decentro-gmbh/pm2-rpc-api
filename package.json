@@ -5,6 +5,7 @@
   "main": "dist/rpc-server.js",
   "types": "dist/rpc-server.d.ts",
   "files": [
+    "src/*",
     "dist/*",
     "README.md",
     "LICENSE"
