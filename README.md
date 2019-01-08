@@ -9,8 +9,10 @@ Automagically create HTTP [JSON-RPC 2.0](https://www.jsonrpc.org/specification) 
 
 ## Why you might want this
 
-
-
+* Write only 4 lines of code in order to create an HTTP RPC endpoint for any module!
+* Small footprint (4 dependencies, total package size of 15.6 kB)
+* Multiple ways of configuration (environment variables, command line flags), useful when deploying in different environments (e.g., local development, staging, production)
+* No client library needed: As JSON-RPC 2.0 is used, it is trivial to create RPC requests by hand and parse responses.
 
 ## Installation
 
@@ -41,7 +43,7 @@ Send a POST request to http://localhost:1337/math
 
 In this example, we add two endpoints:
 * `/console`: this endpoint exposes the `console` object
-* `/custom`: this endpoint exposes a custom object we created
+* `/custom`: this endpoint exposes a custom module we created
 
 ```ts
 const { RpcServer } = require('rpc-automagic');
@@ -109,6 +111,39 @@ Host: localhost:1337
 Authorization: secr3t
 
 { "jsonrpc": "2.0", "id": 123, "method": "pow", "params": [2, 11] }
+```
+
+## Custom RPC Endpoints
+
+Some modules might require special care so that they can be transformed into an RPC endpoint. A common problem is the occurrence of callback parameters, as we cannot pass functions over JSON. However, it is quite simple to extend the `RpcEndpoint` class and override the `execute()` method to solve these kind of issues.
+As an example, we want to create an RPC endpoint for the pm2 API, which uses callbacks for each of its functions:
+
+```ts
+const bluebird = require('bluebird');
+const pm2Sync = require('pm2');
+const { RpcEndpoint } = require('rpc-automagic');
+
+// Promisify pm2 to eliminate callbacks
+const pm2 = bluebird.promisifyAll(pm2Sync);
+
+class Pm2Endpoint extends RpcEndpoint {
+  constructor() {
+    super('/pm2', pm2);
+  }
+
+  /** Execute pm2 RPCs, use the async pendant of the requested method */
+  async execute(method, params) {
+    return super.execute(`${method}Async`, params);
+  }
+}
+```
+
+We can now use our custom RpcEndpoint class to create an `/pm2` endpoint:
+
+```ts
+const server = new RpcServer();
+server.addEndpoint(new Pm2Endpoint());
+server.start();
 ```
 
 ## API Documentation
