@@ -67,6 +67,13 @@
 				<h1 id="rpc-automagic">RPC Automagic</h1>
 				<p><a href="https://github.com/decentro-gmbh/rpc-automagic/blob/master/package.json"><img src="https://img.shields.io/badge/TypeScript-v3-blue.svg?style=flat" alt=""></a> <a href="https://www.npmjs.com/package/rpc-automagic"><img src="https://img.shields.io/npm/v/rpc-automagic.svg" alt=""></a> <a href="https://snyk.io/test/npm/rpc-automagic"><img src="https://img.shields.io/snyk/vulnerabilities/npm/rpc-automagic.svg" alt=""></a> <a href="https://github.com/decentro-gmbh/rpc-automagic/blob/master/LICENSE"><img src="https://img.shields.io/github/license/decentro-gmbh/rpc-automagic.svg?style=flat" alt=""></a></p>
 				<p>Automagically create HTTP <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0</a> endpoints for any node module!</p>
+				<h2 id="why-you-might-want-this">Why you might want this</h2>
+				<ul>
+					<li>Write only 4 lines of code in order to create an HTTP RPC endpoint for any module!</li>
+					<li>Small footprint (5 dependencies, total package size of 15.6 kB)</li>
+					<li>Multiple ways of configuration (environment variables, command line flags), useful when deploying in different environments (e.g., local development, staging, production)</li>
+					<li>No client library needed: As JSON-RPC 2.0 is used, it is trivial to create RPC requests by hand and parse responses.</li>
+				</ul>
 				<h2 id="installation">Installation</h2>
 				<p>Installation is straight forward with npm:</p>
 				<pre><code>npm <span class="hljs-selector-tag">i</span> rpc-automagic</code></pre><h2 id="examples">Examples</h2>
@@ -83,7 +90,7 @@ server.start();</code></pre>
 				<p>In this example, we add two endpoints:</p>
 				<ul>
 					<li><code>/console</code>: this endpoint exposes the <code>console</code> object</li>
-					<li><code>/custom</code>: this endpoint exposes a custom object we created</li>
+					<li><code>/custom</code>: this endpoint exposes a custom module we created</li>
 				</ul>
 				<pre><code class="language-ts"><span class="hljs-keyword">const</span> { RpcServer } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rpc-automagic'</span>);
 
@@ -104,7 +111,75 @@ server.start();</code></pre>
 --&gt; { <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">"method"</span>: <span class="hljs-string">"pick"</span>, <span class="hljs-string">"params"</span>: [<span class="hljs-string">"Margherita"</span>, <span class="hljs-string">"Frutti di Mare"</span>, <span class="hljs-string">"Quattro Formaggi"</span>] }
 &lt;-- { <span class="hljs-string">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">"result"</span>: <span class="hljs-string">"I like this one best: Margherita"</span> }</code></pre>
 				<h2 id="api-documentation">API Documentation</h2>
-				<p>The API documentation can be found here: <a href="https://decentro-gmbh.github.io/rpc-automagic/">https://decentro-gmbh.github.io/rpc-automagic/</a></p>
+				<p>The full API documentation can be found here: <a href="https://decentro-gmbh.github.io/rpc-automagic/">https://decentro-gmbh.github.io/rpc-automagic/</a></p>
+				<h2 id="configuration">Configuration</h2>
+				<p>The following configuration options are available:</p>
+				<ul>
+					<li><code>host</code>: Server host (default: &#39;localhost&#39;)</li>
+					<li><code>port</code>: Server port (default: 1337)</li>
+					<li><code>disabled</code>: Whether the server is disabled by default. Results in the start() method exiting immediately (default: false)</li>
+					<li><code>authentication</code>: Enable authentication (default: false)</li>
+					<li><code>apikeyhash</code>: Provide the SHA256 hash (in hexadecimal format) of the API key that is used for authentication</li>
+				</ul>
+				<p>There are multiple ways to configure the RPC server during initialization:</p>
+				<ol>
+					<li>Provide an options object while creating a new <code>RpcServer</code> instance.</li>
+					<li>Provide one or more configuration options as a command line flag (e.g. <code>--port=1234</code>, <code>--disabled</code>, ...)</li>
+					<li>Provide one or more configuration options as an environment variable. The default prefix is <code>RPC_SERVER_</code> but you can customize it using the <code>envPrefix</code> option while creating a new <code>RpcServer</code> instance. Examples: <code>RPC_SERVER_PORT=1234</code>, <code>RPC_SERVER_DISABLED=true</code></li>
+				</ol>
+				<p>The order in which the sources of configuration options are considered is the following:</p>
+				<ol>
+					<li>command line flags</li>
+					<li>environment variables</li>
+					<li>options object during initialization</li>
+				</ol>
+				<p>For example, starting a server like this:</p>
+				<pre><code><span class="hljs-attribute">RPC_SERVER_PORT</span>=1234 ./start-rpc-server <span class="hljs-attribute">--port</span>=4321</code></pre><p>would result in the server listening on port 4321 as command line flags are considered before environment variables.</p>
+				<h2 id="authentication">Authentication</h2>
+				<p>You can globally enable authentication for all endpoints of the RPC server by setting <code>authentication=true</code> and providing the hash of an API key, e.g.:</p>
+				<pre><code>apikeyhash= '959c9f50aef1bc129a0e<span class="hljs-number">16564319</span>a1b<span class="hljs-number">3651</span>5d<span class="hljs-number">57051307</span>9b6c73c72a<span class="hljs-number">5709</span>abdce', <span class="hljs-comment">// sha256('secr3t')</span></code></pre><p>If authentication is enabled, each request must provide the configured API key using the <code>Authorization</code> HTTP header. Example request:</p>
+				<pre><code><span class="hljs-keyword">POST</span> <span class="hljs-string">/math</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: localhost:1337
+<span class="hljs-attribute">Authorization</span>: secr3t
+
+<span class="json">{ <span class="hljs-attr">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>, <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"method"</span>: <span class="hljs-string">"pow"</span>, <span class="hljs-attr">"params"</span>: [<span class="hljs-number">2</span>, <span class="hljs-number">11</span>] }</span></code></pre><h2 id="custom-rpc-endpoints">Custom RPC Endpoints</h2>
+				<p>Some modules might require special care so that they can be transformed into an RPC endpoint. A common problem is the occurrence of callback parameters, as we cannot pass functions over JSON. However, it is quite simple to extend the <code>RpcEndpoint</code> class and override the <code>execute()</code> method to solve these kind of issues.
+				As an example, we want to create an RPC endpoint for the pm2 API, which uses callbacks for each of its functions:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">const</span> bluebird = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>);
+<span class="hljs-keyword">const</span> pm2Sync = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pm2'</span>);
+<span class="hljs-keyword">const</span> { RpcEndpoint } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rpc-automagic'</span>);
+
+<span class="hljs-comment">// Promisify pm2 to eliminate callbacks</span>
+<span class="hljs-keyword">const</span> pm2 = bluebird.promisifyAll(pm2Sync);
+
+<span class="hljs-keyword">class</span> Pm2Endpoint <span class="hljs-keyword">extends</span> RpcEndpoint {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">super</span>(<span class="hljs-string">'/pm2'</span>, pm2);
+  }
+
+  <span class="hljs-comment">/** Execute pm2 RPCs, use the async pendant of the requested method */</span>
+  <span class="hljs-keyword">async</span> execute(method, params) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.execute(<span class="hljs-string">`<span class="hljs-subst">${method}</span>Async`</span>, params);
+  }
+}</code></pre>
+				<p>We can now use our custom RpcEndpoint class to create an <code>/pm2</code> endpoint:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> RpcServer();
+server.addEndpoint(<span class="hljs-keyword">new</span> Pm2Endpoint());
+server.start();</code></pre>
+				<h2 id="logging">Logging</h2>
+				<p>The default logger simply uses <code>console.log</code> and <code>console.error</code> for printing log messages:</p>
+				<pre><code class="language-ts">logger = {
+  info: <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[INFO] <span class="hljs-subst">${msg}</span>`</span>),
+  warn: <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[WARNING] <span class="hljs-subst">${msg}</span>`</span>),
+  err: <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`[ERROR] <span class="hljs-subst">${msg}</span>`</span>),
+};</code></pre>
+				<p> However, a custom logger object can be provided as the <code>logger</code> member of the options object while creating a new RPC server. This way, you can also disable all logging:</p>
+				<pre><code class="language-ts">logger = {
+  info: <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {}),
+  warn: <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {}),
+  err: <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {}),
+};</code></pre>
+				<p>The format of the request logging can be changed with the <code>requestLoggingFormat</code> option to any of the available <a href="https://www.npmjs.com/package/morgan">morgan</a> logging formats (&#39;common&#39;, &#39;dev&#39;, &#39;short&#39;, &#39;tiny&#39;, ...).</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
