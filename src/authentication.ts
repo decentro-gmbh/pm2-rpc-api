@@ -3,6 +3,7 @@
  */
 
 import * as crypto from 'crypto';
+import { HTTP } from './constants';
 import { ILogger } from './interfaces';
 
 export function generateAuthMiddleware(apiKeyHash: string, log: ILogger) {
@@ -12,7 +13,7 @@ export function generateAuthMiddleware(apiKeyHash: string, log: ILogger) {
     // Check if API key was provided
     if (!apiKey) {
       log.warn('Unsuccessful authentication attempt (missing API key)');
-      return res.status(401).json({ error: 'MISSING_APIKEY', message: 'No API key provided via the HTTP \'authorization\' header' });
+      return res.status(HTTP.UNAUTHORIZED).json({ error: 'MISSING_APIKEY', message: 'No API key provided via the HTTP \'authorization\' header' });
     }
 
     // Check if API key is correct
@@ -20,7 +21,7 @@ export function generateAuthMiddleware(apiKeyHash: string, log: ILogger) {
 
     if (hash !== apiKeyHash) {
       log.warn('Unsuccessful authentication attempt (incorrect API key)');
-      return res.status(401).json({ error: 'WRONG_APIKEY', message: 'The provided API key is incorrect' });
+      return res.status(HTTP.UNAUTHORIZED).json({ error: 'WRONG_APIKEY', message: 'The provided API key is incorrect' });
     }
 
     // Authenticated successfully

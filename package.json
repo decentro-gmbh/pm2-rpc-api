@@ -13,6 +13,7 @@
   "scripts": {
     "build": "tsc -p src/",
     "test": "jest --config test/jest.config.json",
+    "lint": "tslint --project src/",
     "debug": "TS_NODE_PROJECT=src/tsconfig.json TS_NODE_FILE=true node -r ts-node/register --inspect=0.0.0.0 --inspect-brk example/server.ts",
     "start": "ts-node --project src/tsconfig.json example/server.ts",
     "gen-doc": "typedoc --hideGenerator --tsconfig src/tsconfig.json --out docs/ src/"

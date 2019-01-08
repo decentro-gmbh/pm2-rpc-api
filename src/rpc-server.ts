@@ -5,6 +5,7 @@ import * as morgan from 'morgan';
 import * as nconf from 'nconf';
 import { Writable } from 'stream';
 import { generateAuthMiddleware } from './authentication';
+import { HTTP, RPC } from './constants';
 import { IEndpointOptions, ILogger, IServerOptions } from './interfaces';
 import { RpcEndpoint } from './rpc-endpoint';
 export { RpcEndpoint } from './rpc-endpoint';
@@ -164,15 +165,15 @@ export class RpcServer {
     // Register error middleware
     app.use(function errorMiddleware(err, req, res, next) {
       if (err.type === 'entity.parse.failed') {
-        return res.status(400).json({
-          code: -32700,
+        return res.status(HTTP.BAD_REQUEST).json({
+          code: RPC.ERROR.PARSE_ERROR,
           message: 'Parse error: Invalid JSON was received by the server.',
           data: err.stack,
         });
       }
 
-      return res.status(500).json({
-        code: -32000,
+      return res.status(HTTP.INTERNAL_SERVER_ERROR).json({
+        code: RPC.ERROR.SERVER_ERROR,
         message: 'An unexpected server error has occurred',
         data: err.stack,
       });

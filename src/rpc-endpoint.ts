@@ -1,7 +1,7 @@
 import * as Ajv from 'ajv';
 import { Express } from 'express';
+import { HTTP, RPC, rpcRequestSchema } from './constants';
 import { IEndpointOptions, ILogger, IRpcModule, IRpcRequest, IRpcResponse } from './interfaces';
-import { rpcRequestSchema } from './rpc-schema';
 
 /**
  * JSON-RPC 2.0 endpoint class
@@ -36,7 +36,7 @@ export class RpcEndpoint {
   static coerceRequestsToJsonRpc2Middleware(req, res, next) {
     RpcEndpoint.getRpcRequests(req).forEach((rpcRequest) => {
       if (typeof rpcRequest === 'object' && !rpcRequest.hasOwnProperty('jsonrpc')) {
-        rpcRequest.jsonrpc = '2.0';
+        rpcRequest.jsonrpc = RPC.VERSION;
         if (!rpcRequest.hasOwnProperty('id')) {
           rpcRequest.id = null;
         }
@@ -51,8 +51,8 @@ export class RpcEndpoint {
     const ajv = new Ajv();
     const validate: Ajv.ValidateFunction = ajv.compile(rpcRequestSchema);
     if (!validate(req.body)) {
-      return res.status(400).json({
-        code: -32600,
+      return res.status(HTTP.BAD_REQUEST).json({
+        code: RPC.ERROR.INVALID_REQUEST,
         message: 'Invalid Request: The JSON sent is not a valid request object.',
         data: validate.errors,
       });
@@ -71,7 +71,7 @@ export class RpcEndpoint {
       throw {
         name: 'Method not found',
         message: `The method '${method}' does not exist / is not available.`,
-        rpcErrCode: -32601,
+        rpcErrCode: RPC.ERROR.METHOD_NOT_FOUND,
       };
     }
   }
@@ -110,7 +110,7 @@ export class RpcEndpoint {
       } catch (err) {
         return {
           error: {
-            code: err.rpcErrCode || -32000,
+            code: err.rpcErrCode || RPC.ERROR.SERVER_ERROR,
             message: `${err.name}: ${err.message}`,
             data: err.stack,
           },
@@ -120,13 +120,13 @@ export class RpcEndpoint {
 
     const responses: IRpcResponse[] = results.map((result, index) => {
       return {
-        jsonrpc: '2.0',
+        jsonrpc: RPC.VERSION,
         id: rpcRequests[index].id,
         ...result,
       };
     });
 
-    const statusCode = responses.filter((rsp) => rsp.error).length > 0 ? 500 : 200;
+    const statusCode = responses.filter((rsp) => rsp.error).length > 0 ? HTTP.INTERNAL_SERVER_ERROR : HTTP.OK;
 
     if (!Array.isArray(req.body)) {
       return res.status(statusCode).json(responses[0]);

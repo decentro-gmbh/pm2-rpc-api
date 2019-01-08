@@ -2,6 +2,6 @@
   "extends": "@decentro/tslint",
   "rules": {
     "ban-types": false,
-    "no-magic-numbers": false
+    "no-magic-numbers": true
   }
 }
