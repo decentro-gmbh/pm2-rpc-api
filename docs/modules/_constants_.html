@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;rpc-schema&quot; | rpc-automagic</title>
+	<title>&quot;constants&quot; | rpc-automagic</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_rpc_schema_.html">&quot;rpc-schema&quot;</a>
+					<a href="_constants_.html">&quot;constants&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;rpc-schema&quot;</h1>
+			<h1>External module &quot;constants&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,9 @@
 						<section class="tsd-index-section ">
 							<h3>Object literals</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-object-literal tsd-parent-kind-external-module"><a href="_rpc_schema_.html#rpcrequestschema" class="tsd-kind-icon">rpc<wbr>Request<wbr>Schema</a></li>
+								<li class="tsd-kind-object-literal tsd-parent-kind-external-module"><a href="_constants_.html#http" class="tsd-kind-icon">HTTP</a></li>
+								<li class="tsd-kind-object-literal tsd-parent-kind-external-module"><a href="_constants_.html#rpc" class="tsd-kind-icon">RPC</a></li>
+								<li class="tsd-kind-object-literal tsd-parent-kind-external-module"><a href="_constants_.html#rpcrequestschema" class="tsd-kind-icon">rpc<wbr>Request<wbr>Schema</a></li>
 							</ul>
 						</section>
 					</div>
@@ -82,12 +84,162 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Object literals</h2>
 				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-external-module">
+					<a name="http" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> HTTP</h3>
+					<div class="tsd-signature tsd-kind-icon">HTTP<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L2">constants.ts:2</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>HTTP constants (<a href="https://tools.ietf.org/html/rfc2616#section-10">https://tools.ietf.org/html/rfc2616#section-10</a>)</p>
+						</div>
+					</div>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="http.bad_request" class="tsd-anchor"></a>
+						<h3>BAD_<wbr>REQUEST</h3>
+						<div class="tsd-signature tsd-kind-icon">BAD_<wbr>REQUEST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;400</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L4">constants.ts:4</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="http.internal_server_error" class="tsd-anchor"></a>
+						<h3>INTERNAL_<wbr>SERVER_<wbr>ERROR</h3>
+						<div class="tsd-signature tsd-kind-icon">INTERNAL_<wbr>SERVER_<wbr>ERROR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;500</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L6">constants.ts:6</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="http.ok" class="tsd-anchor"></a>
+						<h3>OK</h3>
+						<div class="tsd-signature tsd-kind-icon">OK<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;200</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L3">constants.ts:3</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="http.unauthorized" class="tsd-anchor"></a>
+						<h3>UNAUTHORIZED</h3>
+						<div class="tsd-signature tsd-kind-icon">UNAUTHORIZED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;401</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L5">constants.ts:5</a></li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-external-module">
+					<a name="rpc" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> RPC</h3>
+					<div class="tsd-signature tsd-kind-icon">RPC<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L10">constants.ts:10</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>JSON RPC 2.0 constants (<a href="https://www.jsonrpc.org/specification">https://www.jsonrpc.org/specification</a>)</p>
+						</div>
+					</div>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="rpc.version" class="tsd-anchor"></a>
+						<h3>VERSION</h3>
+						<div class="tsd-signature tsd-kind-icon">VERSION<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;2.0&quot;</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L11">constants.ts:11</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
+						<a name="rpc.error" class="tsd-anchor"></a>
+						<h3>ERROR</h3>
+						<div class="tsd-signature tsd-kind-icon">ERROR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L12">constants.ts:12</a></li>
+							</ul>
+						</aside>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="rpc.error.internal_error" class="tsd-anchor"></a>
+							<h3>INTERNAL_<wbr>ERROR</h3>
+							<div class="tsd-signature tsd-kind-icon">INTERNAL_<wbr>ERROR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;-32603</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L17">constants.ts:17</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="rpc.error.invalid_params" class="tsd-anchor"></a>
+							<h3>INVALID_<wbr>PARAMS</h3>
+							<div class="tsd-signature tsd-kind-icon">INVALID_<wbr>PARAMS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;-32602</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L16">constants.ts:16</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="rpc.error.invalid_request" class="tsd-anchor"></a>
+							<h3>INVALID_<wbr>REQUEST</h3>
+							<div class="tsd-signature tsd-kind-icon">INVALID_<wbr>REQUEST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;-32600</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L14">constants.ts:14</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="rpc.error.method_not_found" class="tsd-anchor"></a>
+							<h3>METHOD_<wbr>NOT_<wbr>FOUND</h3>
+							<div class="tsd-signature tsd-kind-icon">METHOD_<wbr>NOT_<wbr>FOUND<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;-32601</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L15">constants.ts:15</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="rpc.error.parse_error" class="tsd-anchor"></a>
+							<h3>PARSE_<wbr>ERROR</h3>
+							<div class="tsd-signature tsd-kind-icon">PARSE_<wbr>ERROR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;-32700</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L13">constants.ts:13</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+							<a name="rpc.error.server_error" class="tsd-anchor"></a>
+							<h3>SERVER_<wbr>ERROR</h3>
+							<div class="tsd-signature tsd-kind-icon">SERVER_<wbr>ERROR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;-32000</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L18">constants.ts:18</a></li>
+								</ul>
+							</aside>
+						</section>
+					</section>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-external-module">
 					<a name="rpcrequestschema" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> rpc<wbr>Request<wbr>Schema</h3>
 					<div class="tsd-signature tsd-kind-icon">rpc<wbr>Request<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L6">rpc-schema.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L26">constants.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -102,7 +254,7 @@
 						<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;A JSON RPC 2.0 request&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L7">rpc-schema.ts:7</a></li>
+								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L27">constants.ts:27</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -112,7 +264,7 @@
 						<div class="tsd-signature tsd-kind-icon">one<wbr>Of<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[{description: &#x27;An individual request&#x27;,$ref: &#x27;#/definitions/request&#x27;,},{description: &#x27;An array of requests&#x27;,type: &#x27;array&#x27;,items: { $ref: &#x27;#/definitions/request&#x27; },},]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L8">rpc-schema.ts:8</a></li>
+								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L28">constants.ts:28</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -122,7 +274,7 @@
 						<div class="tsd-signature tsd-kind-icon">definitions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L19">rpc-schema.ts:19</a></li>
+								<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L39">constants.ts:39</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
@@ -131,7 +283,7 @@
 							<div class="tsd-signature tsd-kind-icon">request<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L20">rpc-schema.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L40">constants.ts:40</a></li>
 								</ul>
 							</aside>
 							<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -140,7 +292,7 @@
 								<div class="tsd-signature tsd-kind-icon">required<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;jsonrpc&#x27;, &#x27;method&#x27;]</span></div>
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L22">rpc-schema.ts:22</a></li>
+										<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L42">constants.ts:42</a></li>
 									</ul>
 								</aside>
 							</section>
@@ -150,7 +302,7 @@
 								<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;object&quot;</span></div>
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L21">rpc-schema.ts:21</a></li>
+										<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L41">constants.ts:41</a></li>
 									</ul>
 								</aside>
 							</section>
@@ -160,7 +312,7 @@
 								<div class="tsd-signature tsd-kind-icon">properties<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L23">rpc-schema.ts:23</a></li>
+										<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L43">constants.ts:43</a></li>
 									</ul>
 								</aside>
 								<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
@@ -169,7 +321,7 @@
 									<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L28">rpc-schema.ts:28</a></li>
+											<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L48">constants.ts:48</a></li>
 										</ul>
 									</aside>
 									<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -178,7 +330,7 @@
 										<div class="tsd-signature tsd-kind-icon">note<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;While allowed, null should be avoided: http://www.jsonrpc.org/specification#id1&#x27;,&#x27;While allowed, a number with a fractional part should be avoided: http://www.jsonrpc.org/specification#id2&#x27;,]</span></div>
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L30">rpc-schema.ts:30</a></li>
+												<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L50">constants.ts:50</a></li>
 											</ul>
 										</aside>
 									</section>
@@ -188,7 +340,7 @@
 										<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;string&#x27;, &#x27;number&#x27;, &#x27;null&#x27;]</span></div>
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L29">rpc-schema.ts:29</a></li>
+												<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L49">constants.ts:49</a></li>
 											</ul>
 										</aside>
 									</section>
@@ -199,7 +351,7 @@
 									<div class="tsd-signature tsd-kind-icon">jsonrpc<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L24">rpc-schema.ts:24</a></li>
+											<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L44">constants.ts:44</a></li>
 										</ul>
 									</aside>
 									<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -208,7 +360,7 @@
 										<div class="tsd-signature tsd-kind-icon">enum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;2.0&#x27;]</span></div>
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L24">rpc-schema.ts:24</a></li>
+												<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L44">constants.ts:44</a></li>
 											</ul>
 										</aside>
 									</section>
@@ -219,7 +371,7 @@
 									<div class="tsd-signature tsd-kind-icon">method<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L25">rpc-schema.ts:25</a></li>
+											<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L45">constants.ts:45</a></li>
 										</ul>
 									</aside>
 									<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -228,7 +380,7 @@
 										<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;string&quot;</span></div>
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L26">rpc-schema.ts:26</a></li>
+												<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L46">constants.ts:46</a></li>
 											</ul>
 										</aside>
 									</section>
@@ -239,7 +391,7 @@
 									<div class="tsd-signature tsd-kind-icon">params<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L35">rpc-schema.ts:35</a></li>
+											<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L55">constants.ts:55</a></li>
 										</ul>
 									</aside>
 									<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -248,7 +400,7 @@
 										<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;array&#x27;, &#x27;object&#x27;]</span></div>
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/aa5bb1a/src/rpc-schema.ts#L36">rpc-schema.ts:36</a></li>
+												<li>Defined in <a href="https://github.com/decentro-gmbh/pm2-rpc-api/blob/ae15aed/src/constants.ts#L56">constants.ts:56</a></li>
 											</ul>
 										</aside>
 									</section>
@@ -268,14 +420,14 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_authentication_.html">"authentication"</a>
 					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="_constants_.html">"constants"</a>
+					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_interfaces_.html">"interfaces"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_rpc_endpoint_.html">"rpc-<wbr>endpoint"</a>
-					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="_rpc_schema_.html">"rpc-<wbr>schema"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_rpc_server_.html">"rpc-<wbr>server"</a>
@@ -285,7 +437,13 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
-						<a href="_rpc_schema_.html#rpcrequestschema" class="tsd-kind-icon">rpc<wbr>Request<wbr>Schema</a>
+						<a href="_constants_.html#http" class="tsd-kind-icon">HTTP</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="_constants_.html#rpc" class="tsd-kind-icon">RPC</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="_constants_.html#rpcrequestschema" class="tsd-kind-icon">rpc<wbr>Request<wbr>Schema</a>
 					</li>
 				</ul>
 			</nav>
