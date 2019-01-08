@@ -10,7 +10,7 @@ Automagically create HTTP [JSON-RPC 2.0](https://www.jsonrpc.org/specification) 
 ## Why you might want this
 
 * Write only 4 lines of code in order to create an HTTP RPC endpoint for any module!
-* Small footprint (5 dependencies, total package size of 15.6 kB)
+* Small footprint (5 dependencies, total package size < 20 kB)
 * Multiple ways of configuration (environment variables, command line flags), useful when deploying in different environments (e.g., local development, staging, production)
 * No client library needed: As JSON-RPC 2.0 is used, it is trivial to create RPC requests by hand and parse responses.
 
