@@ -23,7 +23,16 @@
     "url": "git+https://github.com/decentro-gmbh/rpc-automagic.git"
   },
   "keywords": [
-    "json-rpc"
+    "json-rpc",
+    "json-rpc 2.0",
+    "tiny-rpc",
+    "rpc-server",
+    "rpc-automagic",
+    "rpc-generation",
+    "rpc-http",
+    "auto-rpc",
+    "node-rpc",
+    "ts-rpc-server"
   ],
   "author": "Decentro GmbH",
   "license": "MIT",
