@@ -1,10 +1,10 @@
 /** Interface for options that can be passed during server initialization */
 export interface IServerOptions {
-  /** Server host */
+  /** Server host (default: 'localhost') */
   host?: string;
-  /** Server port */
+  /** Server port (default: 1337) */
   port?: number;
-  /** Whether the API is disabled by default. Results in the start() method exiting immediately (default: false) */
+  /** Whether the server is disabled by default. Results in the start() method exiting immediately (default: false) */
   disabled?: boolean;
   /** Enable authentication (default: false) */
   authentication?: boolean;
