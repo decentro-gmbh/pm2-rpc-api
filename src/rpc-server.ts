@@ -1,7 +1,9 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import { Server } from 'http';
+import * as morgan from 'morgan';
 import * as nconf from 'nconf';
+import { Writable } from 'stream';
 import { generateAuthMiddleware } from './authentication';
 import { IEndpointOptions, ILogger, IServerOptions } from './interfaces';
 import { RpcEndpoint } from './rpc-endpoint';
@@ -11,7 +13,7 @@ export { RpcEndpoint } from './rpc-endpoint';
 export class RpcServer {
   private envPrefix: string;
   private log: ILogger;
-
+  private requestLoggingFormat: string;
   private host: string;
   private port: number;
   private disabled: boolean;
@@ -25,8 +27,9 @@ export class RpcServer {
     this.log = options.logger || {
       info: (msg) => console.log(`[INFO] ${msg}`), // tslint:disable-line:no-console
       warn: (msg) => console.log(`[WARNING] ${msg}`), // tslint:disable-line:no-console
-      err: (msg) => console.log(`[ERROR] ${msg}`), // tslint:disable-line:no-console
+      err: (msg) => console.error(`[ERROR] ${msg}`), // tslint:disable-line:no-console
     };
+    this.requestLoggingFormat = options.requestLoggingFormat || 'short';
 
     this.envPrefix = (options.envPrefix || 'RPC_SERVER_').toLowerCase();
     this.log.info(`Loading environment variables with prefix: '${this.envPrefix.toUpperCase()}'`);
@@ -135,6 +138,13 @@ export class RpcServer {
     const app = express();
     app.use(bodyParser.json());
     app.disable('x-powered-by');
+
+    // Regsiter logging middleware
+    const log = this.log;
+    app.use(morgan(this.requestLoggingFormat, {
+      /** Convert logging function to stream as morgan expects a stream as input */
+      stream: new Writable({ write(chunk, encoding, cb) { log.info(chunk); cb(); } }),
+    }));
 
     // Register authentication middleware
     if (!this.authentication && this.apikeyhash) {

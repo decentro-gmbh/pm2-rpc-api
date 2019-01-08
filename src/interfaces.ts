@@ -14,6 +14,8 @@ export interface IServerOptions {
   envPrefix?: string;
   /** Logger */
   logger?: ILogger;
+  /** Request logging format, for all options see: https://www.npmjs.com/package/morgan (default: 'short') */
+  requestLoggingFormat?: string;
 }
 
 export interface IEndpointOptions {
@@ -27,7 +29,7 @@ export interface ILogger {
   info?: (msg: string) => void;
   /** Logging function for warnings (default: console.log) */
   warn?: (msg: string) => void;
-  /** Logging function for errors (default: console.log) */
+  /** Logging function for errors (default: console.error) */
   err?: (msg: string) => void;
 }
 

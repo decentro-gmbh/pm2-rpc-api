@@ -10,7 +10,7 @@ Automagically create HTTP [JSON-RPC 2.0](https://www.jsonrpc.org/specification) 
 ## Why you might want this
 
 * Write only 4 lines of code in order to create an HTTP RPC endpoint for any module!
-* Small footprint (4 dependencies, total package size of 15.6 kB)
+* Small footprint (5 dependencies, total package size of 15.6 kB)
 * Multiple ways of configuration (environment variables, command line flags), useful when deploying in different environments (e.g., local development, staging, production)
 * No client library needed: As JSON-RPC 2.0 is used, it is trivial to create RPC requests by hand and parse responses.
 
@@ -68,6 +68,10 @@ As `console.log` does not return anything, we send a [notification](https://www.
 --> { "jsonrpc": "2.0", "id": 1, "method": "pick", "params": ["Margherita", "Frutti di Mare", "Quattro Formaggi"] }
 <-- { "jsonrpc": "2.0", "id": 1, "result": "I like this one best: Margherita" }
 ```
+
+## API Documentation
+
+The full API documentation can be found here: https://decentro-gmbh.github.io/rpc-automagic/
 
 ## Configuration
 
@@ -146,6 +150,25 @@ server.addEndpoint(new Pm2Endpoint());
 server.start();
 ```
 
-## API Documentation
+## Logging
 
-The full API documentation can be found here: https://decentro-gmbh.github.io/rpc-automagic/
+The default logger simply uses `console.log` and `console.error` for printing log messages:
+
+```ts
+logger = {
+  info: (msg) => console.log(`[INFO] ${msg}`),
+  warn: (msg) => console.log(`[WARNING] ${msg}`),
+  err: (msg) => console.error(`[ERROR] ${msg}`),
+};
+```
+ However, a custom logger object can be provided as the `logger` member of the options object while creating a new RPC server. This way, you can also disable all logging:
+
+```ts
+logger = {
+  info: (msg) => {}),
+  warn: (msg) => {}),
+  err: (msg) => {}),
+};
+```
+
+The format of the request logging can be changed with the `requestLoggingFormat` option to any of the available [morgan](https://www.npmjs.com/package/morgan) logging formats ('common', 'dev', 'short', 'tiny', ...).
